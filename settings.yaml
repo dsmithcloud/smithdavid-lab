@@ -1,0 +1,14 @@
+common_tags:
+  Program: MyLab
+  Owner: "smithdavid"
+  Department: "US CS FSI COGS"
+
+core_tags:
+  Environment: "Core"
+
+prod_tags:
+  Environment: "Prod"
+
+dev_tags:
+  Environment: "Dev"
+

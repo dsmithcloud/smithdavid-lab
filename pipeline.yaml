@@ -54,8 +54,7 @@ steps:
 - script: |
     cd  '$(Build.Repository.LocalPath)/'
         $(Build.Repository.LocalPath)/terraform init -backend-config=resource_group_name=$(TFSTATE_SA_RG) -backend-config=storage_account_name=$(tfstate_sa) -backend-config=container_name="tfstate" -backend-config=key="mylab.state" -backend-config=access_key=$(TFSTATE_ACCESSKEY) -no-color -input=false
-        $(Build.Repository.LocalPath)/terraform workspace select $(workspaceName) || $(Build.Repository.LocalPath)/terraform workspace new $(workspaceName)
-  displayName: 'Terraform Workspace Select'
+  displayName: 'Terraform Workspace Init'
 
 # Run Terraform Plan
 - script: |

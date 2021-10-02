@@ -74,7 +74,7 @@ steps:
     $(Build.Repository.LocalPath)/terraform apply -no-color -input=false -parallelism=1 -auto-approve tfplan 
   displayName: 'Terraform Apply'
   workingDirectory: $(Build.Repository.LocalPath)/
-  enabled: false
+  enabled: true
 
 # Terraform Destroy
 - script: |

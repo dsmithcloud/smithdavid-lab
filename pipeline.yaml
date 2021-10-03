@@ -10,7 +10,9 @@
 # DO NOT SPECIFY SECRETS IN THIS FILE, securely pass them via DevOps pipeline variable
 
 trigger:
-- none
+  branches:
+    include:
+    - features/*
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -67,7 +69,7 @@ steps:
     $(Build.Repository.LocalPath)/terraform plan -out=$(Build.Repository.LocalPath)/tfplan -no-color -input=false
   displayName: 'Terraform Plan'
   workingDirectory: $(Build.Repository.LocalPath)/
-  enabled: true
+  enabled: false
 
 # Run Terraform Apply
 - script: |

@@ -29,7 +29,8 @@ variables:
 steps:
 
 - script: |
-      wget --quiet https://releases.hashicorp.com/terraform/$(terraform_version)/terraform_$(terraform_version)_linux_amd64.zip
+      wget https://releases.hashicorp.com/terraform/$(terraform_version)/terraform_$(terraform_version)_linux_amd64.zip
+      unzip -v terraform_$(terraform_version)_linux_amd64.zip
       unzip terraform_$(terraform_version)_linux_amd64.zip
       rm terraform_$(terraform_version)_linux_amd64.zip
       chmod +x terraform

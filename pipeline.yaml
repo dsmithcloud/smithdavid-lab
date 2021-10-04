@@ -69,7 +69,7 @@ steps:
     $(Build.Repository.LocalPath)/terraform plan -out=$(Build.Repository.LocalPath)/tfplan -no-color -input=false
   displayName: 'Terraform Plan'
   workingDirectory: $(Build.Repository.LocalPath)/
-  enabled: false
+  enabled: true
 
 # Run Terraform Apply
 - script: |

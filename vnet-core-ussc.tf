@@ -1,15 +1,3 @@
-resource "azurerm_network_security_group" "nsg-adds" {
-  name                = "subnet-ussc-core-vnet1-adds-nsg"
-  resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
-}
-
-resource "azurerm_network_security_group" "nsg-mgmt" {
-  name                = "subnet-ussc-core-vnet1-mgmt-nsg"
-  resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
-}
-
 resource "azurerm_network_ddos_protection_plan" "ddos-plan" {
   name                = "ddospplan1"
   resource_group_name = azurerm_resource_group.rg-network.name
@@ -17,7 +5,7 @@ resource "azurerm_network_ddos_protection_plan" "ddos-plan" {
 }
 
 resource "azurerm_virtual_network" "vnet-core-ussc" {
-  name = "vnet-core-ussc-0.0.0.0_0"
+  name = "vnet-core-ussc-10.0.0.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = azurerm_resource_group.rg-network.location
   address_space       = ["10.0.0.0/25"]
@@ -48,6 +36,18 @@ resource "azurerm_virtual_network" "vnet-core-ussc" {
   }
 
 tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+}
+
+resource "azurerm_network_security_group" "nsg-adds" {
+  name                = "subnet-ussc-core-vnet1-adds-nsg"
+  resource_group_name = azurerm_resource_group.rg-network.name
+  location            = azurerm_resource_group.rg-network.location
+}
+
+resource "azurerm_network_security_group" "nsg-mgmt" {
+  name                = "subnet-ussc-core-vnet1-mgmt-nsg"
+  resource_group_name = azurerm_resource_group.rg-network.name
+  location            = azurerm_resource_group.rg-network.location
 }
 
 resource "azurerm_virtual_hub_connection" "vnet-core-ussc-hub2-connection" {

@@ -1,8 +1,8 @@
-resource "azurerm_network_ddos_protection_plan" "euw-ddos-plan" {
-  name                = "ddos-core-euw-plan1"
-  resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
-}
+# resource "azurerm_network_ddos_protection_plan" "ddos-plan" {
+#   name                = "ddos-core-euw-plan1"
+#   resource_group_name = azurerm_resource_group.rg-network.name
+#   location            = azurerm_resource_group.rg-network.location
+# }
 
 resource "azurerm_virtual_network" "vnet-core-euw" {
   name = "vnet-core-euw-10.1.0.0_25"
@@ -12,7 +12,7 @@ resource "azurerm_virtual_network" "vnet-core-euw" {
   dns_servers         = ["10.1.0.36", "10.1.0.37"]
 
   ddos_protection_plan {
-    id     = azurerm_network_ddos_protection_plan.euw-ddos-plan.id
+    id     = azurerm_network_ddos_protection_plan.ddos-plan.id
     enable = true
   }
 

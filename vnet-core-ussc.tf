@@ -1,9 +1,3 @@
-resource "azurerm_network_ddos_protection_plan" "ddos-plan" {
-  name                = "ddospplan1"
-  resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
-}
-
 resource "azurerm_virtual_network" "vnet-core-ussc" {
   name = "vnet-core-ussc-10.0.0.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name

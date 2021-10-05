@@ -30,7 +30,7 @@ resource "azurerm_virtual_network" "vnet-core-ussc" {
 
   subnet {
     name           = "subnet-ussc-core-vnet1-mgmt-10.0.0.64_27"
-    address_prefix = "10.0.0.64/227"
+    address_prefix = "10.0.0.64/27"
     security_group = azurerm_network_security_group.nsg-mgmt.id
     #service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
   }

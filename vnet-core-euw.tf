@@ -1,9 +1,3 @@
-# resource "azurerm_network_ddos_protection_plan" "ddos-plan" {
-#   name                = "ddos-core-euw-plan1"
-#   resource_group_name = azurerm_resource_group.rg-network.name
-#   location            = azurerm_resource_group.rg-network.location
-# }
-
 resource "azurerm_virtual_network" "vnet-core-euw" {
   name = "vnet-core-euw-10.1.0.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name
@@ -30,7 +24,7 @@ resource "azurerm_virtual_network" "vnet-core-euw" {
 
   subnet {
     name           = "subnet-euw-core-vnet1-mgmt-10.1.0.64_27"
-    address_prefix = "10.1.0.64/227"
+    address_prefix = "10.1.0.64/27"
     security_group = azurerm_network_security_group.nsg-euw-mgmt.id
     #service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
   }

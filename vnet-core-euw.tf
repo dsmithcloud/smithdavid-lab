@@ -1,7 +1,7 @@
 resource "azurerm_virtual_network" "vnet-core-euw" {
   name = "vnet-core-euw-10.1.0.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "westeurope"
   address_space       = ["10.1.0.0/25"]
   dns_servers         = ["10.1.0.36", "10.1.0.37"]
 
@@ -35,13 +35,13 @@ tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
 resource "azurerm_network_security_group" "nsg-euw-adds" {
   name                = "subnet-euw-core-vnet1-adds-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "westeurope"
 }
 
 resource "azurerm_network_security_group" "nsg-euw-mgmt" {
   name                = "subnet-euw-core-vnet1-mgmt-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "westeurope"
 }
 
 resource "azurerm_virtual_hub_connection" "vnet-core-euw-hub2-connection" {

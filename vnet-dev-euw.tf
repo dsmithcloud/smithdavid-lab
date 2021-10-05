@@ -2,9 +2,9 @@
 resource "azurerm_virtual_network" "vnet-dev-euw" {
   name = "vnet-dev-euw-10.1.2.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "westeurope"
   address_space       = ["10.1.2.0/25"]
-  dns_servers         = ["10.0.0.36", "10.0.0.37"]
+  dns_servers         = ["10.1.0.36", "10.1.0.37"]
 
   ddos_protection_plan {
     id     = azurerm_network_ddos_protection_plan.ddos-plan.id
@@ -33,13 +33,13 @@ tags = "${merge(local.settings.common_tags, local.settings.dev_tags)}"
 resource "azurerm_network_security_group" "nsg-euw-dev-fe" {
   name                = "subnet-euw-dev-vnet1-fe-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "westeurope"
 }
 
 resource "azurerm_network_security_group" "nsg-euw-dev-be" {
   name                = "subnet-euw-dev-vnet1-be-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "westeurope"
 }
 
 

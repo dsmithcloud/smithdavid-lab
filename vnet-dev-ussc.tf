@@ -2,7 +2,7 @@
 resource "azurerm_virtual_network" "vnet-dev-ussc" {
   name = "vnet-dev-ussc-10.0.2.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "southcentralus"
   address_space       = ["10.0.2.0/25"]
   dns_servers         = ["10.0.0.36", "10.0.0.37"]
 
@@ -33,13 +33,13 @@ tags = "${merge(local.settings.common_tags, local.settings.dev_tags)}"
 resource "azurerm_network_security_group" "nsg-ussc-dev-fe" {
   name                = "subnet-ussc-dev-vnet1-fe-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "southcentralus"
 }
 
 resource "azurerm_network_security_group" "nsg-ussc-dev-be" {
   name                = "subnet-ussc-dev-vnet1-be-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
-  location            = azurerm_resource_group.rg-network.location
+  location            = "southcentralus"
 }
 
 

@@ -46,6 +46,6 @@ resource "azurerm_network_security_group" "nsg-euw-dev-be" {
 #================    VWAN Connection    ================
 resource "azurerm_virtual_hub_connection" "vnet-dev-euw-hub2-connection" {
   name                      = "vnet-dev-euw-hub2-connection"
-  virtual_hub_id            = azurerm_virtual_hub.vwan-hub2.id
+  virtual_hub_id            = azurerm_virtual_hub.vwan-euw-hub1.id
   remote_virtual_network_id = azurerm_virtual_network.vnet-dev-euw.id
 }

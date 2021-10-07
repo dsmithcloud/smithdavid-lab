@@ -1,3 +1,4 @@
+#================    VNET    ================
 resource "azurerm_virtual_network" "vnet-core-euw" {
   name = "vnet-core-euw-10.1.0.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name
@@ -32,6 +33,7 @@ resource "azurerm_virtual_network" "vnet-core-euw" {
 tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
 }
 
+#================    NSGs    ================
 resource "azurerm_network_security_group" "nsg-euw-adds" {
   name                = "subnet-euw-core-vnet1-adds-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
@@ -44,8 +46,9 @@ resource "azurerm_network_security_group" "nsg-euw-mgmt" {
   location            = "westeurope"
 }
 
+#================    VWAN Connection    ================
 resource "azurerm_virtual_hub_connection" "vnet-core-euw-hub2-connection" {
   name                      = "vnet-core-euw-hub2-connection"
-  virtual_hub_id            = azurerm_virtual_hub.vwan-hub2.id
+  virtual_hub_id            = azurerm_virtual_hub.vwan-euw-hub1.id
   remote_virtual_network_id = azurerm_virtual_network.vnet-core-euw.id
 }

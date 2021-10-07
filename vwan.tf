@@ -9,7 +9,7 @@ resource "azurerm_virtual_wan" "vwan" {
 
 }
 
-resource "azurerm_virtual_hub" "vwan-hub1" {
+resource "azurerm_virtual_hub" "vwan-euw-hub1" {
   name = "euw-core-vwan1-hub"
   resource_group_name = azurerm_resource_group.rg-vwan.name
   location = "westeurope"
@@ -17,7 +17,7 @@ resource "azurerm_virtual_hub" "vwan-hub1" {
   address_prefix = "172.16.1.0/24"
 }
 
-resource "azurerm_virtual_hub" "vwan-hub2" {
+resource "azurerm_virtual_hub" "vwan-ussc-hub2" {
   name = "ussc-core-vwan1-hub"
   resource_group_name = azurerm_resource_group.rg-vwan.name
   location = "southcentralus"

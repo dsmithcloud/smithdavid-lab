@@ -46,6 +46,6 @@ resource "azurerm_network_security_group" "nsg-mgmt" {
 
 resource "azurerm_virtual_hub_connection" "vnet-core-ussc-hub2-connection" {
   name                      = "vnet-core-ussc-hub2-connection"
-  virtual_hub_id            = azurerm_virtual_hub.vwan-hub2.id
+  virtual_hub_id            = azurerm_virtual_hub.vwan-ussc-hub2.id
   remote_virtual_network_id = azurerm_virtual_network.vnet-core-ussc.id
 }

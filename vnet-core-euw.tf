@@ -11,26 +11,30 @@ resource "azurerm_virtual_network" "vnet-core-euw" {
     enable = true
   }
 
-  subnet {
-    name           = "AzureBastionSubnet"
-    address_prefix = "10.1.0.0/27"
-  }
-
-  subnet {
-    name           = "subnet-euw-core-vnet1-adds-10.1.0.32_27"
-    address_prefix = "10.1.0.32/27"
-    security_group = azurerm_network_security_group.nsg-euw-adds.id
-    #service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
-  }
-
-  subnet {
-    name           = "subnet-euw-core-vnet1-mgmt-10.1.0.64_27"
-    address_prefix = "10.1.0.64/27"
-    security_group = azurerm_network_security_group.nsg-euw-mgmt.id
-    #service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
-  }
-
 tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+}
+
+resource "azurerm_subnet" "subnet-euw-core-bastion" {
+    name           = "AzureBastionSubnet"
+    address_prefixes = ["10.1.0.0/27"]
+    resource_group_name = azurerm_resource_group.rg-network.name
+    virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
+}
+
+resource "azurerm_subnet" "subnet-euw-core-adds" {
+    name           = "subnet-euw-core-vnet1-adds-10.1.0.32_27"
+    address_prefixes = ["10.1.0.32/27"]
+    resource_group_name = azurerm_resource_group.rg-network.name
+    virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
+    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
+}
+
+resource "azurerm_subnet" "subnet-euw-core-mgmt" {
+    name           = "subnet-euw-core-vnet1-mgmt-10.1.0.64_27"
+    address_prefixes = ["10.1.0.64/27"]
+    resource_group_name = azurerm_resource_group.rg-network.name
+    virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
+    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 #================    NSGs    ================
@@ -40,10 +44,20 @@ resource "azurerm_network_security_group" "nsg-euw-adds" {
   location            = "westeurope"
 }
 
+resource "azurerm_subnet_network_security_group_association" "nsg-euw-adds" {
+  subnet_id                 = azurerm_subnet.subnet-euw-core-adds.id
+  network_security_group_id = azurerm_network_security_group.nsg-euw-adds.id
+}
+
 resource "azurerm_network_security_group" "nsg-euw-mgmt" {
   name                = "subnet-euw-core-vnet1-mgmt-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "westeurope"
+}
+
+resource "azurerm_subnet_network_security_group_association" "nsg-euw-mgmt" {
+  subnet_id                 = azurerm_subnet.subnet-euw-core-mgmt.id
+  network_security_group_id = azurerm_network_security_group.nsg-euw-mgmt.id
 }
 
 #================    VWAN Connection    ================

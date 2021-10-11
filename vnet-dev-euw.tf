@@ -11,21 +11,23 @@ resource "azurerm_virtual_network" "vnet-dev-euw" {
     enable = true
   }
 
-  subnet {
-    name           = "subnet-euw-dev-vnet1-fe-10.1.2.0_27"
-    address_prefix = "10.1.2.0/27"
-    security_group = azurerm_network_security_group.nsg-euw-dev-fe.id
-    #service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
-  }
-
-  subnet {
-    name           = "subnet-euw-dev-vnet1-be-10.1.2.32_27"
-    address_prefix = "10.1.2.32/27"
-    security_group = azurerm_network_security_group.nsg-euw-dev-be.id
-    #service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
-  }
-
 tags = "${merge(local.settings.common_tags, local.settings.dev_tags)}"
+}
+
+resource "azurerm_subnet" "subnet-euw-dev-fe" {
+    name           = "subnet-euw-dev-vnet1-fe-10.1.2.0_27"
+    address_prefixes = ["10.1.2.0/27"]
+    resource_group_name = azurerm_resource_group.rg-network.name
+    virtual_network_name = azurerm_virtual_network.vnet-dev-euw.name
+    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
+}
+
+resource "azurerm_subnet" "subnet-euw-dev-be" {
+    name           = "subnet-euw-dev-vnet1-be-10.1.2.32_27"
+    address_prefixes = ["10.1.2.32/27"]
+    resource_group_name = azurerm_resource_group.rg-network.name
+    virtual_network_name = azurerm_virtual_network.vnet-dev-euw.name
+    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 
@@ -36,12 +38,21 @@ resource "azurerm_network_security_group" "nsg-euw-dev-fe" {
   location            = "westeurope"
 }
 
+resource "azurerm_subnet_network_security_group_association" "nsg-euw-dev-fe" {
+  subnet_id                 = azurerm_subnet.subnet-euw-dev-fe.id
+  network_security_group_id = azurerm_network_security_group.nsg-euw-dev-fe.id
+}
+
 resource "azurerm_network_security_group" "nsg-euw-dev-be" {
   name                = "subnet-euw-dev-vnet1-be-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "westeurope"
 }
 
+resource "azurerm_subnet_network_security_group_association" "nsg-euw-dev-be" {
+  subnet_id                 = azurerm_subnet.subnet-euw-dev-be.id
+  network_security_group_id = azurerm_network_security_group.nsg-euw-dev-be.id
+}
 
 #================    VWAN Connection    ================
 resource "azurerm_virtual_hub_connection" "vnet-dev-euw-hub2-connection" {

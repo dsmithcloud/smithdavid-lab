@@ -1,3 +1,8 @@
+variable "euw-adds-ip_address" {
+  type = list(string)
+  default = ["10.1.0.36","10.1.0.37"]  
+}
+
 resource "azurerm_network_interface" "nic-euw-adds" {
   name                = "vmeuwcoreadds${count.index + 1}-NIC"
   location            = azurerm_resource_group.ADDS-euw.location
@@ -8,7 +13,7 @@ resource "azurerm_network_interface" "nic-euw-adds" {
     name                          = "ipconfig1"
     subnet_id                     = azurerm_subnet.subnet-euw-core-adds.id
     private_ip_address_allocation = "Static"
-    private_ip_address = "10.1.0.36"
+    private_ip_address = var.euw-adds-ip_address[count.index]
   }
   
   tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"

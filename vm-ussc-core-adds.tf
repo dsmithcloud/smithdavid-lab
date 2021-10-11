@@ -1,3 +1,8 @@
+variable "ussc-adds-ip_address" {
+  type = list(string)
+  default = ["10.0.0.36","10.0.0.37"]  
+}
+
 resource "azurerm_network_interface" "nic-ussc-adds" {
   name                = "vmussccoreadds${count.index + 1}-NIC"
   location            = azurerm_resource_group.ADDS-ussc.location
@@ -8,7 +13,7 @@ resource "azurerm_network_interface" "nic-ussc-adds" {
     name                          = "ipconfig1"
     subnet_id                     = azurerm_subnet.subnet-ussc-core-adds.id
     private_ip_address_allocation = "Static"
-    private_ip_address = "10.0.0.36"
+    private_ip_address = var.ussc-adds-ip_address[count.index]
   }
   
   tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"

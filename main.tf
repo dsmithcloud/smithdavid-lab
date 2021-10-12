@@ -31,3 +31,14 @@ resource "azurerm_resource_group" "euw-admin" {
   name     = "rg-euw-core-admin"
   location = "West Europe"
 }
+
+resource "azurerm_resource_group" "ussc-law" {
+  name     = "ussc-core-log"
+  location = "South Central US"
+}
+
+resource "azurerm_resource_group" "euw-law" {
+  name     = "euw-core-log"
+  location = "West Europe"
+}
+

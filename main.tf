@@ -21,3 +21,13 @@ resource "azurerm_resource_group" "ADDS-euw" {
   name = "rg-euw-core-adds"
   location = "West Europe"
 }
+
+resource "azurerm_resource_group" "ussc-admin" {
+  name     = "rg-ussc-core-admin"
+  location = "South Central US"
+}
+
+resource "azurerm_resource_group" "euw-admin" {
+  name     = "rg-euw-core-admin"
+  location = "West Europe"
+}

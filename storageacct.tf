@@ -5,7 +5,7 @@ resource "azurerm_storage_account" "storussccoreadmin01" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = "${merge(local.settings.common_tags, local.settings.core_tags, {ms-resource-usage = "azure-cloud-shell"})}"
 }
 
 resource "azurerm_storage_share" "dsmith-shell" {
@@ -31,5 +31,5 @@ resource "azurerm_storage_account" "storeuwcoreadmin01" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = "${merge(local.settings.common_tags, local.settings.core_tags, {ms-resource-usage = "azure-cloud-shell"})}"
 }

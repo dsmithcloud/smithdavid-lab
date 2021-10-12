@@ -97,23 +97,23 @@ resource "azurerm_virtual_machine_extension" "ussc-iaasantimalware" {
 SETTINGS
 }
 
-#resource "azurerm_virtual_machine_extension" "mma" {
-#   name                 = local.settings.adds.extension1.name
-#   virtual_machine_id   = azurerm_virtual_machine.vm-ussc-adds[count.index].id
-#   publisher            = local.settings.adds.extension1.publisher
-#   type                 = local.settings.adds.extension1.type
-#   type_handler_version = local.settings.adds.extension1.type_handler_version
-#   count                = 2
+resource "azurerm_virtual_machine_extension" "ussc-mma" {
+  name                 = "MicrosoftMonitoringAgent"
+  virtual_machine_id   = azurerm_virtual_machine.vm-ussc-adds[count.index].id
+  publisher            = "Microsoft.EnterpriseCloud.Monitoring"
+  type                 = "MicrosoftMonitoringAgent"
+  type_handler_version = "1.0"
+  count                = 2
 
-#   settings = <<SETTINGS
-#         {
-#           "workspaceId": "${azurerm_log_analytics_workspace.loganalytics[0].workspace_id}"
-#         }
-#         SETTINGS
+  settings = <<SETTINGS
+        {
+          "workspaceId": "${azurerm_log_analytics_workspace.ussc-core-log.workspace_id}"
+        }
+        SETTINGS
 
-#   protected_settings = <<PROTECTED_SETTINGS
-#         {
-#           "workspaceKey": "${azurerm_log_analytics_workspace.loganalytics[0].primary_shared_key}"
-#         }
-#         PROTECTED_SETTINGS
-# }
+  protected_settings = <<PROTECTED_SETTINGS
+        {
+          "workspaceKey": "${azurerm_log_analytics_workspace.ussc-core-log.primary_shared_key}"
+        }
+        PROTECTED_SETTINGS
+}

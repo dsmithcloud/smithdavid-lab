@@ -33,12 +33,12 @@ resource "azurerm_resource_group" "euw-admin" {
 }
 
 resource "azurerm_resource_group" "ussc-law" {
-  name     = "ussc-core-log"
+  name     = "rg-ussc-core-log"
   location = "South Central US"
 }
 
 resource "azurerm_resource_group" "euw-law" {
-  name     = "euw-core-log"
+  name     = "rg-euw-core-log"
   location = "West Europe"
 }
 

@@ -6,10 +6,10 @@ resource "azurerm_virtual_network" "vnet-core-ussc" {
   address_space       = ["10.0.0.0/25"]
   dns_servers         = ["10.0.0.36", "10.0.0.37"]
 
-  ddos_protection_plan {
-    id     = azurerm_network_ddos_protection_plan.ddos-plan.id
-    enable = true
-  } 
+  # ddos_protection_plan {
+  #   id     = azurerm_network_ddos_protection_plan.ddos-plan.id
+  #   enable = true
+  # } 
 
 tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
 }

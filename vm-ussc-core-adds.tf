@@ -3,11 +3,15 @@ variable "ussc-adds-ip_address" {
   default = ["10.0.0.36","10.0.0.37"]  
 }
 
+variable "ussc-dc-count" {
+  default = 1
+}
+
 resource "azurerm_network_interface" "nic-ussc-adds" {
   name                = "vmussccoreadds${count.index + 1}-NIC"
   location            = azurerm_resource_group.ADDS-ussc.location
   resource_group_name = azurerm_resource_group.ADDS-ussc.name
-  count               = 2
+  count               = var.ussc-dc-count
 
   ip_configuration {
     name                          = "ipconfig1"
@@ -35,7 +39,7 @@ resource "azurerm_virtual_machine" "vm-ussc-adds" {
   vm_size                          = "Standard_D2s_v3"
   availability_set_id              = azurerm_availability_set.avset-ussc-adds.id
   delete_data_disks_on_termination = true
-  count                            = 2
+  count                            = var.ussc-dc-count
 
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
@@ -76,7 +80,7 @@ resource "azurerm_virtual_machine_extension" "ussc-iaasantimalware" {
   type                       = "IaaSAntimalware"
   type_handler_version       = "1.3"
   auto_upgrade_minor_version = true
-  count                      = 2
+  count                      = var.ussc-dc-count
 
   settings = <<SETTINGS
     {
@@ -103,7 +107,7 @@ resource "azurerm_virtual_machine_extension" "ussc-mma" {
   publisher            = "Microsoft.EnterpriseCloud.Monitoring"
   type                 = "MicrosoftMonitoringAgent"
   type_handler_version = "1.0"
-  count                = 2
+  count                = var.ussc-dc-count
 
   settings = <<SETTINGS
         {

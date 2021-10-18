@@ -42,7 +42,7 @@ variable "policies" {
           parameters = <<PARAMETERS
           {
             "listOfAllowedSKUs": {
-                "value": "["Standard_D2s_V3","Standard_B2s"]"
+                "value": ["Standard_D2s_V3","Standard_B2s"]
             }
           }
           PARAMETERS

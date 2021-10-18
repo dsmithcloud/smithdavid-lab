@@ -1,5 +1,5 @@
 resource "azurerm_automation_account" "ussc-automation" {
-  name                = "automationAccount1"
+  name                = "ussc-core-aa"
   location            = azurerm_resource_group.ussc-admin.location
   resource_group_name = azurerm_resource_group.ussc-admin.name
 
@@ -9,7 +9,7 @@ resource "azurerm_automation_account" "ussc-automation" {
 }
 
 resource "azurerm_automation_account" "euw-automation" {
-  name                = "automationAccount1"
+  name                = "euw-core-aa"
   location            = azurerm_resource_group.euw-admin.location
   resource_group_name = azurerm_resource_group.euw-admin.name
 

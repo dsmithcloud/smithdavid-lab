@@ -2,27 +2,23 @@ variable "policies" {
   type = map(object({
     name = string
     policy_id = string
-    parameters = any
+    parameters = string
   }))
   default = {
       "0" = {
         name = "Enable Azure Monitor for VMs - EUW"
         policy_id = "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
-        parameters = {
-            "logAnalytics_1": "23a2774b-841d-4d8a-b0cd-f69c23b22464"
-        }
+        parameters = "{\n	\"logAnalytics_1\": {		\"value\": \"/subscriptions/a086e6e3-3a0f-45fb-aa14-1d53e4308040/resourcegroups/rg-euw-core-log/providers/microsoft.operationalinsights/workspaces/euw-core-log\"	}}"
       },
       "1" = {
         name = "Enable Azure Monitor for VMs - USSC"
         policy_id = "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
-        parameters = {
-            "logAnalytics_1": "fabb6e89-565c-429b-8a03-688b7fdef4e5"
-        }
+        parameters = "{\n	\"logAnalytics_1\": {		\"value\": \"/subscriptions/a086e6e3-3a0f-45fb-aa14-1d53e4308040/resourcegroups/rg-ussc-core-log/providers/microsoft.operationalinsights/workspaces/ussc-core-log\"	}}"
       },
       "2" = {
         name = "Storage accounts should restrict network access"
         policy_id = "/providers/Microsoft.Authorization/policyDefinitions/2a1a9cdf-e04d-429a-8416-3bfb72a1b26f"
-        parameters = {}
+        parameters = ""
       }
   }
 }

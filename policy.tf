@@ -6,13 +6,20 @@ variable "policies" {
   }))
   default = {
       "1" = {
-        name = "Enable Azure Monitor for VMs"
+        name = "Enable Azure Monitor for VMs - EUW"
         policy_id = "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
         parameters = {
-            "logAnalytics_1": "$(azurerm_log_analytics_workspace.ussc-core-log.id)"
+            "logAnalytics_1": "23a2774b-841d-4d8a-b0cd-f69c23b22464"
         }
       },
       "2" = {
+        name = "Enable Azure Monitor for VMs - USSC"
+        policy_id = "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
+        parameters = {
+            "logAnalytics_1": "fabb6e89-565c-429b-8a03-688b7fdef4e5"
+        }
+      },
+      "3" = {
         name = "Storage accounts should restrict network access"
         policy_id = "/providers/Microsoft.Authorization/policyDefinitions/2a1a9cdf-e04d-429a-8416-3bfb72a1b26f"
         parameters = {}

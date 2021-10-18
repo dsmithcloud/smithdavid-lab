@@ -8,7 +8,11 @@ variable "policies" {
       "policy1" = {
         name = "Enable Azure Monitor for VMs"
         policy_id = "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
-        parameters = "{\"logAnalytics_1\": \"$(azurerm_log_analytics_workspace.ussc-core-log.id)\"}"
+        parameters = <<EOL
+        {
+            "logAnalytics_1": "$(azurerm_log_analytics_workspace.ussc-core-log.id)"
+        }
+        EOL
       },
       "policy2" = {
         name = "Storage accounts should restrict network access using virtual network rules"

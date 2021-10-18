@@ -9,22 +9,22 @@ variable "policies" {
         name = "Enable Azure Monitor for VMs - EUW"
         policy_id = "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
         parameters = <<PARAMETERS
-        "{
+        {
             "logAnalytics": {
                 "value": "/subscriptions/a086e6e3-3a0f-45fb-aa14-1d53e4308040/resourcegroups/rg-euw-core-log/providers/microsoft.operationalinsights/workspaces/euw-core-log"
             }
-        },"
+        }
         PARAMETERS
       },
       "1" = {
         name = "Enable Azure Monitor for VMs - USSC"
         policy_id = "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
         parameters = <<parameters
-        "{
+        {
             "logAnalytics_1": {
                 "value": "/subscriptions/a086e6e3-3a0f-45fb-aa14-1d53e4308040/resourcegroups/rg-ussc-core-log/providers/microsoft.operationalinsights/workspaces/ussc-core-log"
             }
-         },"
+         }
         parameters
       },
       "2" = {

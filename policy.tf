@@ -62,5 +62,6 @@ resource "azurerm_subscription_policy_assignment" "policyAssignment" {
   location = each.value.location
   identity {
     type = "SystemAssigned"
+    location = "southcentralus"
   }
 }

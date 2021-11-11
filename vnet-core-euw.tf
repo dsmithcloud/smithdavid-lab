@@ -37,6 +37,13 @@ resource "azurerm_subnet" "subnet-euw-core-mgmt" {
     service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
+resource "azurerm_subnet" "subnet-euw-core-cloudshell" {
+    name           = "subnet-euw-core-vnet1-mgmt-10.1.0.96_27"
+    address_prefixes = ["10.1.0.96/27"]
+    resource_group_name = azurerm_resource_group.rg-network.name
+    virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
+}
+
 #================    NSGs    ================
 resource "azurerm_network_security_group" "nsg-euw-adds" {
   name                = "subnet-euw-core-vnet1-adds-nsg"
@@ -58,6 +65,17 @@ resource "azurerm_network_security_group" "nsg-euw-mgmt" {
 resource "azurerm_subnet_network_security_group_association" "nsg-euw-mgmt" {
   subnet_id                 = azurerm_subnet.subnet-euw-core-mgmt.id
   network_security_group_id = azurerm_network_security_group.nsg-euw-mgmt.id
+}
+
+resource "azurerm_network_security_group" "nsg-euw-cloudshell" {
+  name                = "subnet-euw-core-vnet1-cloudshell-nsg"
+  resource_group_name = azurerm_resource_group.rg-network.name
+  location            = "westeurope"
+}
+
+resource "azurerm_subnet_network_security_group_association" "nsg-euw-cloudshell" {
+  subnet_id                 = azurerm_subnet.subnet-euw-core-cloudshell.id
+  network_security_group_id = azurerm_network_security_group.nsg-euw-cloudshell.id
 }
 
 #================    VWAN Connection    ================

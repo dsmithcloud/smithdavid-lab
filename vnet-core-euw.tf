@@ -38,7 +38,7 @@ resource "azurerm_subnet" "subnet-euw-core-mgmt" {
 }
 
 resource "azurerm_subnet" "subnet-euw-core-cloudshell" {
-    name           = "subnet-euw-core-vnet1-mgmt-10.1.0.96_27"
+    name           = "subnet-euw-core-vnet1-cloudshell-10.1.0.96_27"
     address_prefixes = ["10.1.0.96/27"]
     resource_group_name = azurerm_resource_group.rg-network.name
     virtual_network_name = azurerm_virtual_network.vnet-core-euw.name

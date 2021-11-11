@@ -38,6 +38,13 @@ resource "azurerm_subnet" "subnet-ussc-core-mgmt" {
     service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
+resource "azurerm_subnet" "subnet-ussc-core-cloudshell" {
+    name           = "subnet-ussc-core-vnet1-cloudshell-10.0.0.96_27"
+    address_prefixes = ["10.0.0.96/27"]
+    resource_group_name = azurerm_resource_group.rg-network.name
+    virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
+}
+
 #================    NSGs    ================
 resource "azurerm_network_security_group" "nsg-adds" {
   name                = "subnet-ussc-core-vnet1-adds-nsg"
@@ -59,6 +66,17 @@ resource "azurerm_network_security_group" "nsg-mgmt" {
 resource "azurerm_subnet_network_security_group_association" "nsg-mgmt" {
   subnet_id                 = azurerm_subnet.subnet-ussc-core-mgmt.id
   network_security_group_id = azurerm_network_security_group.nsg-mgmt.id
+}
+
+resource "azurerm_network_security_group" "nsg-cloudshell" {
+  name                = "subnet-ussc-core-vnet1-cloudshell-nsg"
+  resource_group_name = azurerm_resource_group.rg-network.name
+  location            = "southcentralus"
+}
+
+resource "azurerm_subnet_network_security_group_association" "nsg-cloudshell" {
+  subnet_id                 = azurerm_subnet.subnet-ussc-core-cloudshell.id
+  network_security_group_id = azurerm_network_security_group.nsg-cloudshell.id
 }
 
 #================    Hub Connection    ================

@@ -104,9 +104,28 @@ resource "azurerm_private_dns_a_record" "ussc-dns-a-record" {
   records             = ["10.0.0.116"]
 }
 
-#================    Storage Firewall    ================
+#================    Storage    ================
+resource "azurerm_storage_account" "storussccorecshell" {
+  name                     = "storussccorecshell"
+  resource_group_name = azurerm_resource_group.rg-network.name
+  location            = "southcentralus"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+tags = "${merge(local.settings.common_tags, local.settings.core_tags, {ms-resource-usage = "azure-cloud-shell"})}"
+}
+
 resource "azurerm_storage_account_network_rules" "cshellstor-fwrules" {
-  storage_account_id = azurerm_storage_account.storussccoreadmin01.id
+  storage_account_id = azurerm_storage_account.storussccorecshell.id
   default_action             = "Deny"
   virtual_network_subnet_ids = [azurerm_subnet.subnet-ussc-core-storage.id]
+  depends_on = [
+    azurerm_storage_share.cloudshell-dsmith
+  ]
+}
+
+resource "azurerm_storage_share" "cloudshell-dsmith" {
+  name                 = "cloudshell-dsmith"
+  storage_account_name = azurerm_storage_account.storussccorecshell.name
+  quota                = 50
 }

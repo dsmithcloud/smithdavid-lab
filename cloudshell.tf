@@ -1,7 +1,7 @@
 #================    Subnets    ================
 resource "azurerm_subnet" "subnet-ussc-core-cloudshell" {
-    name           = "subnet-ussc-core-vnet1-cloudshell-10.0.0.96_29"
-    address_prefixes = ["10.0.0.96/29"]
+    name           = "subnet-ussc-core-vnet1-cloudshell-10.0.0.96_28"
+    address_prefixes = ["10.0.0.96/28"]
     resource_group_name = azurerm_resource_group.rg-network.name
     virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
     service_endpoints    = ["Microsoft.Storage"]
@@ -12,8 +12,8 @@ resource "azurerm_subnet" "subnet-ussc-core-cloudshell" {
 }
 
 resource "azurerm_subnet" "subnet-ussc-core-relay" {
-    name           = "subnet-ussc-core-vnet1-relay-10.0.0.104_29"
-    address_prefixes = ["10.0.0.104/29"]
+    name           = "subnet-ussc-core-vnet1-relay-10.0.0.112_29"
+    address_prefixes = ["10.0.0.112/29"]
     resource_group_name = azurerm_resource_group.rg-network.name
     virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
     enforce_private_link_endpoint_network_policies = true #true = Disable; false = Enable
@@ -21,8 +21,8 @@ resource "azurerm_subnet" "subnet-ussc-core-relay" {
 }
 
 resource "azurerm_subnet" "subnet-ussc-core-storage" {
-    name           = "subnet-ussc-core-vnet1-storage-10.0.0.112_29"
-    address_prefixes = ["10.0.0.12/29"]
+    name           = "subnet-ussc-core-vnet1-storage-10.0.0.120_29"
+    address_prefixes = ["10.0.0.120/29"]
     resource_group_name = azurerm_resource_group.rg-network.name
     virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
     service_endpoints    = ["Microsoft.Storage"]

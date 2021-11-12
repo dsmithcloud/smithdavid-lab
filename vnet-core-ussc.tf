@@ -1,9 +1,9 @@
 #================    VNET    ================
 resource "azurerm_virtual_network" "vnet-core-ussc" {
-  name = "vnet-core-ussc-10.0.0.0_25"
+  name = "vnet-core-ussc-10.0.0.0_24"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "southcentralus"
-  address_space       = ["10.0.0.0/25"]
+  address_space       = ["10.0.0.0/24"]
   dns_servers         = ["10.0.0.36", "10.0.0.37"]
 
   # ddos_protection_plan {
@@ -59,17 +59,6 @@ resource "azurerm_network_security_group" "nsg-mgmt" {
 resource "azurerm_subnet_network_security_group_association" "nsg-mgmt" {
   subnet_id                 = azurerm_subnet.subnet-ussc-core-mgmt.id
   network_security_group_id = azurerm_network_security_group.nsg-mgmt.id
-}
-
-resource "azurerm_network_security_group" "nsg-cloudshell" {
-  name                = "subnet-ussc-core-vnet1-cloudshell-nsg"
-  resource_group_name = azurerm_resource_group.rg-network.name
-  location            = "southcentralus"
-}
-
-resource "azurerm_subnet_network_security_group_association" "nsg-cloudshell" {
-  subnet_id                 = azurerm_subnet.subnet-ussc-core-cloudshell.id
-  network_security_group_id = azurerm_network_security_group.nsg-cloudshell.id
 }
 
 #================    Hub Connection    ================

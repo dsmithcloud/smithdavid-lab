@@ -53,18 +53,35 @@ resource "azurerm_relay_namespace" "ussc-namespace" {
 }
 
 #================    Role Assignments    ================
+data "azurerm_subscription" "current" {
+}
+
+data "azuread_service_principal" "ACIService" {
+  object_id = "c4ed4578-a9a5-494a-9551-65c018594082"
+}
+
+data "azurerm_role_definition" "contributorRoleDefinitionId" {
+  role_definition_id = "b24988ac-6180-42a0-ab88-20f7382dd24c"
+  scope = data.azurerm_subscription.current.id
+}
+
+data "azurerm_role_definition" "networkRoleDefinitionId" {
+  role_definition_id = "4d97b98b-1d4f-4787-a291-c67834d212e7"
+  scope = data.azurerm_subscription.current.id
+}
+
 resource "azurerm_role_assignment" "ussc-role-assignment-network" {
   name = uuid()
   scope                = azurerm_network_profile.vnet-core-ussc-networkprofile.id
-  role_definition_name = "Network Contributor"
-  principal_id         = "c4ed4578-a9a5-494a-9551-65c018594082"
+  role_definition_name = data.azurerm_role_definition.networkRoleDefinitionId.name
+  principal_id         = data.azuread_service_principal.ACIService.object_id
 }
 
 resource "azurerm_role_assignment" "ussc-role-assignment-contributor" {
   name = uuid()
   scope                = azurerm_network_profile.vnet-core-ussc-networkprofile.id
-  role_definition_name = "Contributor"
-  principal_id         = "c4ed4578-a9a5-494a-9551-65c018594082"
+  role_definition_name = data.azurerm_role_definition.contributorRoleDefinitionId.name
+  principal_id         = data.azuread_service_principal.ACIService.object_id
 }
 
 #================    Private Endpoints    ================

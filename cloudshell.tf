@@ -16,8 +16,8 @@ resource "azurerm_subnet" "subnet-ussc-core-relay" {
     address_prefixes = ["10.0.0.112/28"]
     resource_group_name = azurerm_resource_group.rg-network.name
     virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
-    enforce_private_link_endpoint_network_policies = false
-    enforce_private_link_service_network_policies = true
+    enforce_private_link_endpoint_network_policies = true
+    enforce_private_link_service_network_policies = false
 }
 
 #================    Network Profile    ================

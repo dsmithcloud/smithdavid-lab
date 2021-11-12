@@ -69,7 +69,7 @@ resource "azurerm_private_endpoint" "ussc-private-endpoint" {
     name                           = "ussc-privateserviceconnection"
     private_connection_resource_id = azurerm_relay_namespace.ussc-namespace.id
     is_manual_connection           = false
-    subresource_names = null
+    subresource_names = [null]
   }
   tags = "${merge(local.settings.common_tags, local.settings.dev_tags)}"
 }

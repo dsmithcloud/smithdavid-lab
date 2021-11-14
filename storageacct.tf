@@ -5,7 +5,7 @@ resource "azurerm_storage_account" "storussccoreadmin01" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags, {ms-resource-usage = "azure-cloud-shell"})}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags, { ms-resource-usage = "azure-cloud-shell" })
 }
 
 resource "azurerm_storage_share" "dsmith-shell" {
@@ -13,15 +13,15 @@ resource "azurerm_storage_share" "dsmith-shell" {
   storage_account_name = azurerm_storage_account.storussccoreadmin01.name
   quota                = 50
 
-#   acl {
-#     id = "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI"
+  #   acl {
+  #     id = "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI"
 
-#     access_policy {
-#       permissions = "rwdl"
-#       start       = "2019-07-02T09:38:21.0000000Z"
-#       expiry      = "2019-07-02T10:38:21.0000000Z"
-#     }
-#   }
+  #     access_policy {
+  #       permissions = "rwdl"
+  #       start       = "2019-07-02T09:38:21.0000000Z"
+  #       expiry      = "2019-07-02T10:38:21.0000000Z"
+  #     }
+  #   }
 }
 
 resource "azurerm_storage_account" "storeuwcoreadmin01" {
@@ -31,5 +31,5 @@ resource "azurerm_storage_account" "storeuwcoreadmin01" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags, {ms-resource-usage = "azure-cloud-shell"})}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags, { ms-resource-usage = "azure-cloud-shell" })
 }

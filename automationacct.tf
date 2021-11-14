@@ -5,7 +5,7 @@ resource "azurerm_automation_account" "ussc-automation" {
 
   sku_name = "Basic"
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 resource "azurerm_automation_account" "euw-automation" {
@@ -15,5 +15,5 @@ resource "azurerm_automation_account" "euw-automation" {
 
   sku_name = "Basic"
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }

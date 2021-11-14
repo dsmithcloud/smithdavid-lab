@@ -13,12 +13,12 @@ resource "azurerm_resource_group" "rg-network" {
 }
 
 resource "azurerm_resource_group" "ADDS-ussc" {
-  name = "rg-ussc-core-adds"
+  name     = "rg-ussc-core-adds"
   location = "South Central US"
 }
 
 resource "azurerm_resource_group" "ADDS-euw" {
-  name = "rg-euw-core-adds"
+  name     = "rg-euw-core-adds"
   location = "West Europe"
 }
 

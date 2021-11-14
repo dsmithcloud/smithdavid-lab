@@ -1,6 +1,6 @@
 #================    VNET    ================
 resource "azurerm_virtual_network" "vnet-core-ussc" {
-  name = "vnet-core-ussc-10.0.0.0_24"
+  name                = "vnet-core-ussc-10.0.0.0_24"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "southcentralus"
   address_space       = ["10.0.0.0/24"]
@@ -11,31 +11,31 @@ resource "azurerm_virtual_network" "vnet-core-ussc" {
   #   enable = true
   # } 
 
-tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 #================    Subnets    ================
 resource "azurerm_subnet" "subnet-ussc-core-bastion" {
-    name           = "AzureBastionSubnet"
-    address_prefixes = ["10.0.0.0/27"]
-    resource_group_name = azurerm_resource_group.rg-network.name
-    virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
+  name                 = "AzureBastionSubnet"
+  address_prefixes     = ["10.0.0.0/27"]
+  resource_group_name  = azurerm_resource_group.rg-network.name
+  virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
 }
 
 resource "azurerm_subnet" "subnet-ussc-core-adds" {
-    name           = "subnet-ussc-core-vnet1-adds-10.0.0.32_27"
-    address_prefixes = ["10.0.0.32/27"]
-    resource_group_name = azurerm_resource_group.rg-network.name
-    virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
-    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
+  name                 = "subnet-ussc-core-vnet1-adds-10.0.0.32_27"
+  address_prefixes     = ["10.0.0.32/27"]
+  resource_group_name  = azurerm_resource_group.rg-network.name
+  virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
+  service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 resource "azurerm_subnet" "subnet-ussc-core-mgmt" {
-    name           = "subnet-ussc-core-vnet1-mgmt-10.0.0.64_27"
-    address_prefixes = ["10.0.0.64/27"]
-    resource_group_name = azurerm_resource_group.rg-network.name
-    virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
-    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
+  name                 = "subnet-ussc-core-vnet1-mgmt-10.0.0.64_27"
+  address_prefixes     = ["10.0.0.64/27"]
+  resource_group_name  = azurerm_resource_group.rg-network.name
+  virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
+  service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 #================    NSGs    ================

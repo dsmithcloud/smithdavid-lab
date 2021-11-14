@@ -1,6 +1,6 @@
 #================    VNET    ================
 resource "azurerm_virtual_network" "vnet-prod-ussc" {
-  name = "vnet-prod-ussc-10.0.1.0_25"
+  name                = "vnet-prod-ussc-10.0.1.0_25"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "southcentralus"
   address_space       = ["10.0.1.0/25"]
@@ -11,23 +11,23 @@ resource "azurerm_virtual_network" "vnet-prod-ussc" {
   #   enable = true
   # }
 
-tags = "${merge(local.settings.common_tags, local.settings.prod_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.prod_tags)
 }
 
 resource "azurerm_subnet" "subnet-ussc-prod-fe" {
-    name           = "subnet-ussc-prod-vnet1-fe-10.0.1.0_27"
-    virtual_network_name = azurerm_virtual_network.vnet-prod-ussc.name
-    address_prefixes = ["10.0.1.0/27"]
-    resource_group_name = azurerm_resource_group.rg-network.name
-    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
+  name                 = "subnet-ussc-prod-vnet1-fe-10.0.1.0_27"
+  virtual_network_name = azurerm_virtual_network.vnet-prod-ussc.name
+  address_prefixes     = ["10.0.1.0/27"]
+  resource_group_name  = azurerm_resource_group.rg-network.name
+  service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 resource "azurerm_subnet" "subnet-ussc-prod-be" {
-    name           = "subnet-ussc-prod-vnet1-be-10.0.1.32_27"
-    virtual_network_name = azurerm_virtual_network.vnet-prod-ussc.name
-    address_prefixes = ["10.0.1.32/27"]
-    resource_group_name = azurerm_resource_group.rg-network.name
-    service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
+  name                 = "subnet-ussc-prod-vnet1-be-10.0.1.32_27"
+  virtual_network_name = azurerm_virtual_network.vnet-prod-ussc.name
+  address_prefixes     = ["10.0.1.32/27"]
+  resource_group_name  = azurerm_resource_group.rg-network.name
+  service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 
@@ -36,7 +36,7 @@ resource "azurerm_network_security_group" "nsg-ussc-prod-fe" {
   name                = "subnet-ussc-prod-vnet1-fe-nsg"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "southcentralus"
-  
+
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg-ussc-prod-fe" {
@@ -52,7 +52,7 @@ resource "azurerm_network_security_group" "nsg-ussc-prod-be" {
 
 resource "azurerm_subnet_network_security_group_association" "nsg-ussc-prod-be" {
   subnet_id                 = azurerm_subnet.subnet-ussc-prod-be.id
-  network_security_group_id = azurerm_network_security_group.nsg-ussc-prod-be.id 
+  network_security_group_id = azurerm_network_security_group.nsg-ussc-prod-be.id
 }
 
 #================    VWAN Connection    ================

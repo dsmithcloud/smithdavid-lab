@@ -1,6 +1,6 @@
 variable "ussc-adds-ip_address" {
-  type = list(string)
-  default = ["10.0.0.36"]  
+  type    = list(string)
+  default = ["10.0.0.36"]
 }
 
 resource "azurerm_network_interface" "nic-ussc-adds" {
@@ -13,10 +13,10 @@ resource "azurerm_network_interface" "nic-ussc-adds" {
     name                          = "ipconfig1"
     subnet_id                     = azurerm_subnet.subnet-ussc-core-adds.id
     private_ip_address_allocation = "Static"
-    private_ip_address = var.ussc-adds-ip_address[count.index]
+    private_ip_address            = var.ussc-adds-ip_address[count.index]
   }
-  
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 resource "azurerm_availability_set" "avset-ussc-adds" {
@@ -24,7 +24,7 @@ resource "azurerm_availability_set" "avset-ussc-adds" {
   location            = azurerm_resource_group.ADDS-ussc.location
   resource_group_name = azurerm_resource_group.ADDS-ussc.name
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 resource "azurerm_virtual_machine" "vm-ussc-adds" {
@@ -66,7 +66,7 @@ resource "azurerm_virtual_machine" "vm-ussc-adds" {
     caching           = "None"
   }
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 resource "azurerm_virtual_machine_extension" "ussc-iaasantimalware" {

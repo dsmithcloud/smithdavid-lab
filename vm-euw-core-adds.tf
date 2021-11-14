@@ -1,6 +1,6 @@
 variable "euw-adds-ip_address" {
-  type = list(string)
-  default = ["10.1.0.36"]  
+  type    = list(string)
+  default = ["10.1.0.36"]
 }
 
 resource "azurerm_network_interface" "nic-euw-adds" {
@@ -13,10 +13,10 @@ resource "azurerm_network_interface" "nic-euw-adds" {
     name                          = "ipconfig1"
     subnet_id                     = azurerm_subnet.subnet-euw-core-adds.id
     private_ip_address_allocation = "Static"
-    private_ip_address = var.euw-adds-ip_address[count.index]
+    private_ip_address            = var.euw-adds-ip_address[count.index]
   }
-  
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 resource "azurerm_availability_set" "avset-euw-adds" {
@@ -24,7 +24,7 @@ resource "azurerm_availability_set" "avset-euw-adds" {
   location            = azurerm_resource_group.ADDS-euw.location
   resource_group_name = azurerm_resource_group.ADDS-euw.name
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 resource "azurerm_virtual_machine" "vm-euw-adds" {
@@ -35,7 +35,7 @@ resource "azurerm_virtual_machine" "vm-euw-adds" {
   vm_size                          = "Standard_D2s_v3"
   availability_set_id              = azurerm_availability_set.avset-euw-adds.id
   delete_data_disks_on_termination = true
-  count               = length(var.euw-adds-ip_address)
+  count                            = length(var.euw-adds-ip_address)
 
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
@@ -66,7 +66,7 @@ resource "azurerm_virtual_machine" "vm-euw-adds" {
     caching           = "None"
   }
 
-  tags = "${merge(local.settings.common_tags, local.settings.core_tags)}"
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
 resource "azurerm_virtual_machine_extension" "euw-iaasantimalware" {
@@ -76,7 +76,7 @@ resource "azurerm_virtual_machine_extension" "euw-iaasantimalware" {
   type                       = "IaaSAntimalware"
   type_handler_version       = "1.3"
   auto_upgrade_minor_version = true
-  count               = length(var.euw-adds-ip_address)
+  count                      = length(var.euw-adds-ip_address)
 
   settings = <<SETTINGS
     {
@@ -103,7 +103,7 @@ resource "azurerm_virtual_machine_extension" "euw-mma" {
   publisher            = "Microsoft.EnterpriseCloud.Monitoring"
   type                 = "MicrosoftMonitoringAgent"
   type_handler_version = "1.0"
-  count               = length(var.euw-adds-ip_address)
+  count                = length(var.euw-adds-ip_address)
 
   settings = <<SETTINGS
         {

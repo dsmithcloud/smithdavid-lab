@@ -145,8 +145,8 @@ resource "azurerm_storage_account_network_rules" "cshellstor-fwrules" {
   ]
 }
 
-resource "azurerm_storage_share" "file-share" {
-  name                 = var.file-share-name
-  storage_account_name = azurerm_storage_account.storageaccount.name
-  quota                = 50
-}
+#resource "azurerm_storage_share" "file-share" {
+ # name                 = var.file-share-name
+ #  storage_account_name = azurerm_storage_account.storageaccount.name
+  #quota                = 50
+#}

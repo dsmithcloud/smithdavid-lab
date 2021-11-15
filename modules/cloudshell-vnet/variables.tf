@@ -1,7 +1,7 @@
-variable "resource-group" {
-  type        = string
-  description = "the name of the resource group to deploy to"
-}
+# variable "resource-group" {
+#   type        = string
+#   description = "the name of the resource group to deploy to"
+# }
 
 variable "region" {
   type        = string
@@ -14,7 +14,7 @@ variable "existing-vnet-name" {
 }
 
 variable "existing-vnet-resource-group" {
-  type = string
+  type        = string
   description = "the name of the resource containing the existing virtual network"
 }
 
@@ -65,11 +65,6 @@ variable "storage-subnet-prefix" {
 variable "storageaccount-name" {
   type        = string
   description = "the name of the storage account to create"
-}
-
-variable "file-share-name" {
-  type        = string
-  description = "the name of the file share to create"
 }
 
 variable "private-endpoint-name" {

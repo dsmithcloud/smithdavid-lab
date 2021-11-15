@@ -56,9 +56,9 @@ resource "azurerm_relay_namespace" "relay-namespace" {
 data "azurerm_subscription" "current" {
 }
 
-data "azuread_service_principal" "ACIServiceOID" {
-  object_id = var.ACI-OID
-}
+# data "azuread_service_principal" "ACIServiceOID" {
+#   object_id = var.ACI-OID
+# }
 
 data "azurerm_role_definition" "contributorRoleDefinitionId" {
   role_definition_id = "b24988ac-6180-42a0-ab88-20f7382dd24c"
@@ -74,14 +74,14 @@ resource "azurerm_role_assignment" "role-assignment-network" {
   name                 = uuid()
   scope                = azurerm_network_profile.network-profile.id
   role_definition_name = data.azurerm_role_definition.networkRoleDefinitionId.name
-  principal_id         = data.azuread_service_principal.ACIServiceOID.object_id
+  principal_id         = var.ACI-OID
 }
 
 resource "azurerm_role_assignment" "role-assignment-contributor" {
   name                 = uuid()
   scope                = azurerm_network_profile.network-profile.id
   role_definition_name = data.azurerm_role_definition.contributorRoleDefinitionId.name
-  principal_id         = data.azuread_service_principal.ACIServiceOID.object_id
+  principal_id         = var.ACI-OID
 }
 
 #================    Private Endpoints    ================

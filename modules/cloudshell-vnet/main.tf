@@ -31,7 +31,7 @@ resource "azurerm_subnet" "storage-subnet" {
 #================    Network Profile    ================
 resource "azurerm_network_profile" "network-profile" {
   name                = "${var.existing-vnet-name}-profile"
-  resource_group_name = var.resource-group
+  resource_group_name = var.existing-vnet-resource-group
   location            = var.region
   container_network_interface {
     name = "eth-cloudshell"
@@ -46,7 +46,7 @@ resource "azurerm_network_profile" "network-profile" {
 #================    Relay Namespace   ================
 resource "azurerm_relay_namespace" "relay-namespace" {
   name                = var.relay-namespace-name # must be unique
-  resource_group_name = var.resource-group
+  resource_group_name = var.existing-vnet-resource-group
   location            = var.region
   sku_name            = "Standard"
   tags                = var.tags
@@ -55,10 +55,6 @@ resource "azurerm_relay_namespace" "relay-namespace" {
 #================    Role Assignments    ================
 data "azurerm_subscription" "current" {
 }
-
-# data "azuread_service_principal" "ACIServiceOID" {
-#   object_id = var.ACI-OID
-# }
 
 data "azurerm_role_definition" "contributorRoleDefinitionId" {
   role_definition_id = "b24988ac-6180-42a0-ab88-20f7382dd24c"
@@ -87,7 +83,7 @@ resource "azurerm_role_assignment" "role-assignment-contributor" {
 #================    Private Endpoints    ================
 resource "azurerm_private_endpoint" "private-endpoint" {
   name                = var.private-endpoint-name
-  resource_group_name = var.resource-group
+  resource_group_name = var.existing-vnet-resource-group
   location            = var.region
   subnet_id           = azurerm_subnet.relay-subnet.id
   private_service_connection {
@@ -106,13 +102,13 @@ data "azurerm_virtual_network" "virtual-network" {
 }
 resource "azurerm_private_dns_zone" "global-private-dns-zone" {
   name                = "privatelink.servicebus.windows.net"
-  resource_group_name = var.resource-group
+  resource_group_name = var.existing-vnet-resource-group
   tags                = var.tags
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "dns-zone-link" {
   name                  = azurerm_relay_namespace.relay-namespace.name
-  resource_group_name   = var.resource-group
+  resource_group_name   = var.existing-vnet-resource-group
   private_dns_zone_name = "privatelink.servicebus.windows.net"
   virtual_network_id    = data.azurerm_virtual_network.virtual-network.id
 }
@@ -120,7 +116,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dns-zone-link" {
 resource "azurerm_private_dns_a_record" "ussc-dns-a-record" {
   name                = azurerm_relay_namespace.relay-namespace.name
   zone_name           = azurerm_private_dns_zone.global-private-dns-zone.name
-  resource_group_name = var.resource-group
+  resource_group_name = var.existing-vnet-resource-group
   ttl                 = 3600
   records             = [cidrhost(var.relay-subnet-prefix[0], 4)]
 }
@@ -128,7 +124,7 @@ resource "azurerm_private_dns_a_record" "ussc-dns-a-record" {
 #================    Storage    ================
 resource "azurerm_storage_account" "storageaccount" {
   name                     = var.storageaccount-name
-  resource_group_name      = var.resource-group
+  resource_group_name      = var.existing-vnet-resource-group
   location                 = var.region
   account_tier             = "Standard"
   account_replication_type = "LRS"
@@ -140,13 +136,4 @@ resource "azurerm_storage_account_network_rules" "cshellstor-fwrules" {
   storage_account_id         = azurerm_storage_account.storageaccount.id
   default_action             = "Deny"
   virtual_network_subnet_ids = [azurerm_subnet.storage-subnet.id]
-  #depends_on = [
-    #azurerm_storage_share.file-share
-  #]
 }
-
-#resource "azurerm_storage_share" "file-share" {
- # name                 = var.file-share-name
- #  storage_account_name = azurerm_storage_account.storageaccount.name
-  #quota                = 50
-#}

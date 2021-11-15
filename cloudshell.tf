@@ -57,7 +57,7 @@ data "azurerm_subscription" "current" {
 }
 
 data "azuread_service_principal" "ACIService" {
-  object_id = "88536fb9-d60a-4aee-8195-041425d6e927"
+  object_id = "6bb8e274-af5d-4df2-98a3-4fd78b4cafd9"
 }
 
 data "azurerm_role_definition" "contributorRoleDefinitionId" {

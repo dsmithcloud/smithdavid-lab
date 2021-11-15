@@ -42,9 +42,4 @@ resource "azurerm_resource_group" "euw-law" {
   location = "West Europe"
 }
 
-resource "azurerm_resource_group" "rg-ussc-cloudshell" {
-  name     = "rg-ussc-cloudshell"
-  location = "South Central US"
-}
-
 

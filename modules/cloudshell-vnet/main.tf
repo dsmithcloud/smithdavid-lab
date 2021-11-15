@@ -113,7 +113,7 @@ resource "azurerm_private_dns_zone" "global-private-dns-zone" {
 resource "azurerm_private_dns_zone_virtual_network_link" "dns-zone-link" {
   name                  = azurerm_relay_namespace.relay-namespace.name
   resource_group_name   = var.existing-vnet-resource-group
-  private_dns_zone_name = azurerm_private_dns_zone.global-private-dns-zone.name
+  private_dns_zone_name = "privatelink.servicebus.windows.net"
   virtual_network_id    = data.azurerm_virtual_network.virtual-network.id
 }
 
@@ -122,7 +122,7 @@ resource "azurerm_private_dns_a_record" "ussc-dns-a-record" {
   zone_name           = azurerm_private_dns_zone.global-private-dns-zone.name
   resource_group_name = var.resource-group
   ttl                 = 3600
-  records             = [cidrhost(var.container-subnet-prefix[0], 4)]
+  records             = [cidrhost(var.relay-subnet-prefix[0], 4)]
 }
 
 #================    Storage    ================

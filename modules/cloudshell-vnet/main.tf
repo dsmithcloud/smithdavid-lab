@@ -140,9 +140,9 @@ resource "azurerm_storage_account_network_rules" "cshellstor-fwrules" {
   storage_account_id         = azurerm_storage_account.storageaccount.id
   default_action             = "Deny"
   virtual_network_subnet_ids = [azurerm_subnet.storage-subnet.id]
-  depends_on = [
-    azurerm_storage_share.file-share
-  ]
+  #depends_on = [
+    #azurerm_storage_share.file-share
+  #]
 }
 
 #resource "azurerm_storage_share" "file-share" {

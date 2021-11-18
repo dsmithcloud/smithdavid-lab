@@ -57,11 +57,6 @@ variable "storage-subnet-name" {
   default     = "storagesubnet"
 }
 
-variable "storage-subnet-prefix" {
-  type        = list(string)
-  description = "the list of address prefix(es) to be assigned to the storage subnet"
-}
-
 variable "storageaccount-name" {
   type        = string
   description = "the name of the storage account to create"

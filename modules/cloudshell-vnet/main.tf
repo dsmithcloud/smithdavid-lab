@@ -20,14 +20,6 @@ resource "azurerm_subnet" "relay-subnet" {
   enforce_private_link_service_network_policies  = false #true = Disable; false = Enable
 }
 
-resource "azurerm_subnet" "storage-subnet" {
-  name                 = var.storage-subnet-name
-  address_prefixes     = var.storage-subnet-prefix
-  resource_group_name  = var.existing-vnet-resource-group
-  virtual_network_name = var.existing-vnet-name
-  service_endpoints    = ["Microsoft.Storage"]
-}
-
 #================    Network Profile    ================
 resource "azurerm_network_profile" "network-profile" {
   name                = "${var.existing-vnet-name}-profile"
@@ -135,5 +127,5 @@ resource "azurerm_storage_account" "storageaccount" {
 resource "azurerm_storage_account_network_rules" "cshellstor-fwrules" {
   storage_account_id         = azurerm_storage_account.storageaccount.id
   default_action             = "Deny"
-  virtual_network_subnet_ids = [azurerm_subnet.storage-subnet.id]
+  virtual_network_subnet_ids = [azurerm_subnet.container-subnet.id]
 }

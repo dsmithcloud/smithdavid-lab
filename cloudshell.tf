@@ -1,5 +1,5 @@
 module "cloudshell-vnet" {
-  source                       = "git@github.com:dsmithcloud/tf-cloudshell-vnet.git"
+  source                       = "https://github.com/dsmithcloud/tf-cloudshell-vnet.git"
   region                       = "southcentralus"
   existing-vnet-name           = "vnet-core-ussc-10.0.0.0_24"
   existing-vnet-resource-group = "rg-global-core-network"

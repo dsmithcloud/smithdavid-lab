@@ -1,8 +1,3 @@
-variable "ussc-adds-ip_address" {
-  type    = list(string)
-  default = ["10.0.0.36"]
-}
-
 resource "azurerm_network_interface" "nic-ussc-adds" {
   name                = "vmussccoreadds${count.index + 1}-NIC"
   location            = azurerm_resource_group.ADDS-ussc.location

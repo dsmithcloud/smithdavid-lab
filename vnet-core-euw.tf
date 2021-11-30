@@ -1,9 +1,9 @@
 #================    VNET    ================
 resource "azurerm_virtual_network" "vnet-core-euw" {
-  name                = "vnet-core-euw-10.1.0.0_25"
+  name                = "vnet-core-euw-10.1.0.0_22"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "westeurope"
-  address_space       = ["10.1.0.0/25"]
+  address_space       = ["10.1.0.0/22"]
   dns_servers         = var.euw-adds-ip_address
 
   # ddos_protection_plan {
@@ -14,34 +14,21 @@ resource "azurerm_virtual_network" "vnet-core-euw" {
   tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 
-resource "azurerm_subnet" "subnet-euw-core-bastion" {
-  name                 = "AzureBastionSubnet"
-  address_prefixes     = ["10.1.0.0/27"]
-  resource_group_name  = azurerm_resource_group.rg-network.name
-  virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
-}
-
+#================    Subnets    ================
 resource "azurerm_subnet" "subnet-euw-core-adds" {
-  name                 = "subnet-euw-core-vnet1-adds-10.1.0.32_27"
-  address_prefixes     = ["10.1.0.32/27"]
-  resource_group_name  = azurerm_resource_group.rg-network.name
-  virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
-  service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
-}
-
-resource "azurerm_subnet" "subnet-euw-core-mgmt" {
-  name                 = "subnet-euw-core-vnet1-mgmt-10.1.0.64_27"
+  name                 = "subnet-euw-core-vnet1-adds-10.1.0.64_27"
   address_prefixes     = ["10.1.0.64/27"]
   resource_group_name  = azurerm_resource_group.rg-network.name
   virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
   service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
-resource "azurerm_subnet" "subnet-euw-core-cloudshell" {
-  name                 = "subnet-euw-core-vnet1-cloudshell-10.1.0.96_27"
+resource "azurerm_subnet" "subnet-euw-core-mgmt" {
+  name                 = "subnet-euw-core-vnet1-mgmt-10.1.0.96_27"
   address_prefixes     = ["10.1.0.96/27"]
   resource_group_name  = azurerm_resource_group.rg-network.name
   virtual_network_name = azurerm_virtual_network.vnet-core-euw.name
+  service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 #================    NSGs    ================
@@ -65,17 +52,6 @@ resource "azurerm_network_security_group" "nsg-euw-mgmt" {
 resource "azurerm_subnet_network_security_group_association" "nsg-euw-mgmt" {
   subnet_id                 = azurerm_subnet.subnet-euw-core-mgmt.id
   network_security_group_id = azurerm_network_security_group.nsg-euw-mgmt.id
-}
-
-resource "azurerm_network_security_group" "nsg-euw-cloudshell" {
-  name                = "subnet-euw-core-vnet1-cloudshell-nsg"
-  resource_group_name = azurerm_resource_group.rg-network.name
-  location            = "westeurope"
-}
-
-resource "azurerm_subnet_network_security_group_association" "nsg-euw-cloudshell" {
-  subnet_id                 = azurerm_subnet.subnet-euw-core-cloudshell.id
-  network_security_group_id = azurerm_network_security_group.nsg-euw-cloudshell.id
 }
 
 #================    VWAN Connection    ================

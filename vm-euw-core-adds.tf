@@ -1,8 +1,3 @@
-variable "euw-adds-ip_address" {
-  type    = list(string)
-  default = ["10.1.0.36"]
-}
-
 resource "azurerm_network_interface" "nic-euw-adds" {
   name                = "vmeuwcoreadds${count.index + 1}-NIC"
   location            = azurerm_resource_group.ADDS-euw.location

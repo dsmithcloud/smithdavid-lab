@@ -1,9 +1,9 @@
 #================    VNET    ================
 resource "azurerm_virtual_network" "vnet-prod-ussc" {
-  name                = "vnet-prod-ussc-10.0.1.0_25"
+  name                = "vnet-prod-ussc-10.0.5.0_24"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "southcentralus"
-  address_space       = ["10.0.1.0/25"]
+  address_space       = ["10.0.5.0/24"]
   dns_servers         = var.ussc-adds-ip_address
 
   # ddos_protection_plan {
@@ -15,17 +15,17 @@ resource "azurerm_virtual_network" "vnet-prod-ussc" {
 }
 
 resource "azurerm_subnet" "subnet-ussc-prod-fe" {
-  name                 = "subnet-ussc-prod-vnet1-fe-10.0.1.0_27"
+  name                 = "subnet-ussc-prod-vnet1-fe-10.0.5.0_27"
   virtual_network_name = azurerm_virtual_network.vnet-prod-ussc.name
-  address_prefixes     = ["10.0.1.0/27"]
+  address_prefixes     = ["10.0.5.0/27"]
   resource_group_name  = azurerm_resource_group.rg-network.name
   service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 resource "azurerm_subnet" "subnet-ussc-prod-be" {
-  name                 = "subnet-ussc-prod-vnet1-be-10.0.1.32_27"
+  name                 = "subnet-ussc-prod-vnet1-be-10.0.5.32_27"
   virtual_network_name = azurerm_virtual_network.vnet-prod-ussc.name
-  address_prefixes     = ["10.0.1.32/27"]
+  address_prefixes     = ["10.0.5.32/27"]
   resource_group_name  = azurerm_resource_group.rg-network.name
   service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }

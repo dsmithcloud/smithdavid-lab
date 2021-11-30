@@ -1,3 +1,10 @@
+resource "azurerm_subnet" "subnet-ussc-core-bastion" {
+  name                 = "AzureBastionSubnet"
+  address_prefixes     = ["10.0.0.0/26"] # Minimum /26
+  resource_group_name  = azurerm_resource_group.rg-network.name
+  virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
+}
+
 resource "azurerm_public_ip" "bastion-pip" {
   name                = "bastion-core-ussc-nic"
   location            = azurerm_resource_group.rg-network.location

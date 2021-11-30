@@ -1,9 +1,9 @@
 #================    VNET    ================
 resource "azurerm_virtual_network" "vnet-core-ussc" {
-  name                = "vnet-core-ussc-10.0.0.0_24"
+  name                = "vnet-core-ussc-10.0.0.0_22"
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "southcentralus"
-  address_space       = ["10.0.0.0/24"]
+  address_space       = ["10.0.0.0/22"]
   dns_servers         = var.ussc-adds-ip_address
 
   # ddos_protection_plan {
@@ -15,24 +15,17 @@ resource "azurerm_virtual_network" "vnet-core-ussc" {
 }
 
 #================    Subnets    ================
-resource "azurerm_subnet" "subnet-ussc-core-bastion" {
-  name                 = "AzureBastionSubnet"
-  address_prefixes     = ["10.0.0.0/27"]
-  resource_group_name  = azurerm_resource_group.rg-network.name
-  virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
-}
-
 resource "azurerm_subnet" "subnet-ussc-core-adds" {
-  name                 = "subnet-ussc-core-vnet1-adds-10.0.0.32_27"
-  address_prefixes     = ["10.0.0.32/27"]
+  name                 = "subnet-ussc-core-vnet1-adds-10.0.0.64_27"
+  address_prefixes     = ["10.0.0.64/27"]
   resource_group_name  = azurerm_resource_group.rg-network.name
   virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
   service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]
 }
 
 resource "azurerm_subnet" "subnet-ussc-core-mgmt" {
-  name                 = "subnet-ussc-core-vnet1-mgmt-10.0.0.64_27"
-  address_prefixes     = ["10.0.0.64/27"]
+  name                 = "subnet-ussc-core-vnet1-mgmt-10.0.0.96_27"
+  address_prefixes     = ["10.0.0.96/27"]
   resource_group_name  = azurerm_resource_group.rg-network.name
   virtual_network_name = azurerm_virtual_network.vnet-core-ussc.name
   service_endpoints    = ["Microsoft.KeyVault", "Microsoft.Storage"]

@@ -33,3 +33,23 @@ resource "azurerm_storage_account" "storeuwcoreadmin01" {
 
   tags = merge(local.settings.common_tags, local.settings.core_tags, { ms-resource-usage = "azure-cloud-shell" })
 }
+
+resource "azurerm_storage_account" "storeuwcorelogs01" {
+  name                     = "storeuwcorelogs01"
+  location                 = azurerm_resource_group.euw-law.location
+  resource_group_name      = azurerm_resource_group.euw-law.name
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
+}
+
+resource "azurerm_storage_account" "storussccorelogs01" {
+  name                     = "storussccorelogs01"
+  location                 = azurerm_resource_group.ussc-law.location
+  resource_group_name      = azurerm_resource_group.ussc-law.name
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = merge(local.settings.common_tags, local.settings.core_tags)
+}

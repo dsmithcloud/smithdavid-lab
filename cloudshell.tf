@@ -1,5 +1,6 @@
 module "cloudshell-vnet" {
   source                       = "dsmithcloud/cloudshell-vnet/azurerm"
+  version                      = "v1.0.1"
   existing-vnet-resource-group = azurerm_resource_group.rg-network.name
   existing-vnet-name           = azurerm_virtual_network.vnet-core-ussc.name
   ACI-OID                      = "88536fb9-d60a-4aee-8195-041425d6e927"

@@ -12,3 +12,25 @@ module "cloudshell-vnet" {
   storageaccount-name          = "storusscshell01"
   tags                         = merge(local.settings.common_tags, local.settings.core_tags)
 }
+
+resource "azurerm_network_security_group" "nsg-cloudshell" {
+  name                = "subnet-ussc-core-vnet1-cloudshell-nsg"
+  resource_group_name = azurerm_resource_group.rg-network.name
+  location            = azurerm_resource_group.rg-network.location
+}
+
+resource "azurerm_subnet_network_security_group_association" "nsg-cloudshell" {
+  subnet_id                 = module.cloudshell-vnet.container-subnet-id
+  network_security_group_id = azurerm_network_security_group.nsg-cloudshell.id
+}
+
+resource "azurerm_network_security_group" "nsg-relay" {
+  name                = "subnet-ussc-core-vnet1-relay-nsg"
+  resource_group_name = azurerm_resource_group.rg-network.name
+  location            = azurerm_resource_group.rg-network.location
+}
+
+resource "azurerm_subnet_network_security_group_association" "nsg-relay" {
+  subnet_id                 = module.cloudshell-vnet.relay-subnet-id
+  network_security_group_id = azurerm_network_security_group.nsg-relay.id
+}

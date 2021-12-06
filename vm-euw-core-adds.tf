@@ -41,7 +41,7 @@ resource "azurerm_virtual_machine" "vm-euw-adds" {
   os_profile {
     computer_name  = "vmeuwcoreadds${count.index + 1}"
     admin_username = "azadmin"
-    admin_password = "#mRjNQ2@47Ch"
+    admin_password = var.admin_ospassword
   }
   os_profile_windows_config {
     provision_vm_agent        = true

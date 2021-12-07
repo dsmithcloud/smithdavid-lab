@@ -5,6 +5,12 @@
 *.tfstate
 *.tfstate.*
 
+# tfplan files
+tfplan
+
+# local terraform executable
+terraform
+
 # Crash log files
 crash.log
 

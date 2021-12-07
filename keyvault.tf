@@ -29,6 +29,23 @@ resource "azurerm_key_vault" "ussc-core-kv" {
       "Get",
     ]
   }
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = "0bbb40c6-f6d6-4c9b-9760-d8c62dde5978"
+
+    key_permissions = [
+      "Get",
+    ]
+
+    secret_permissions = [
+      "Get",
+    ]
+
+    storage_permissions = [
+      "Get",
+    ]
+  }
 }
 
 resource "azurerm_key_vault" "euw-core-kv" {
@@ -47,6 +64,23 @@ resource "azurerm_key_vault" "euw-core-kv" {
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = data.azurerm_client_config.current.object_id
+
+    key_permissions = [
+      "Get",
+    ]
+
+    secret_permissions = [
+      "Get",
+    ]
+
+    storage_permissions = [
+      "Get",
+    ]
+  }
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = "0bbb40c6-f6d6-4c9b-9760-d8c62dde5978"
 
     key_permissions = [
       "Get",

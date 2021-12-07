@@ -28,6 +28,10 @@ resource "azurerm_key_vault" "ussc-core-kv" {
     storage_permissions = [
       "Get",
     ]
+
+    certificate_permissions = [
+      "Get",
+    ]
   }
 
   access_policy {
@@ -43,6 +47,10 @@ resource "azurerm_key_vault" "ussc-core-kv" {
     ]
 
     storage_permissions = [
+      "Get",
+    ]
+
+    certificate_permissions = [
       "Get",
     ]
   }
@@ -76,6 +84,10 @@ resource "azurerm_key_vault" "euw-core-kv" {
     storage_permissions = [
       "Get",
     ]
+
+    certificate_permissions = [
+      "Get",
+    ]
   }
 
   access_policy {
@@ -91,6 +103,10 @@ resource "azurerm_key_vault" "euw-core-kv" {
     ]
 
     storage_permissions = [
+      "Get",
+    ]
+
+    certificate_permissions = [
       "Get",
     ]
   }

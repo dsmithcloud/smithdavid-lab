@@ -26,6 +26,10 @@ resource "azurerm_key_vault_access_policy" "ussc-core-kv" {
   secret_permissions = [
     "Get",
   ]
+
+  storage_permissions = [
+    "Get",
+  ]
 }
 
 resource "azurerm_key_vault" "euw-core-kv" {

@@ -12,24 +12,23 @@ resource "azurerm_key_vault" "ussc-core-kv" {
   purge_protection_enabled        = true
 
   sku_name = "standard"
-}
 
-resource "azurerm_key_vault_access_policy" "ussc-core-kv" {
-  key_vault_id = azurerm_key_vault.ussc-core-kv.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
 
-  key_permissions = [
-    "Get",
-  ]
+    key_permissions = [
+      "Get",
+    ]
 
-  secret_permissions = [
-    "Get",
-  ]
+    secret_permissions = [
+      "Get",
+    ]
 
-  storage_permissions = [
-    "Get",
-  ]
+    storage_permissions = [
+      "Get",
+    ]
+  }
 }
 
 resource "azurerm_key_vault" "euw-core-kv" {
@@ -44,18 +43,21 @@ resource "azurerm_key_vault" "euw-core-kv" {
   purge_protection_enabled        = true
 
   sku_name = "standard"
-}
 
-resource "azurerm_key_vault_access_policy" "euw-core-kv" {
-  key_vault_id = azurerm_key_vault.euw-core-kv.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
 
-  key_permissions = [
-    "Get",
-  ]
+    key_permissions = [
+      "Get",
+    ]
 
-  secret_permissions = [
-    "Get",
-  ]
+    secret_permissions = [
+      "Get",
+    ]
+
+    storage_permissions = [
+      "Get",
+    ]
+  }
 }

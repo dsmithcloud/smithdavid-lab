@@ -72,7 +72,7 @@ steps:
 
   # Run Terraform Apply
   - script: |
-      $(Build.Repository.LocalPath)/terraform apply -no-color -input=false -parallelism=1 -auto-approve tfplan -var 'admin_ospassword=$(ADDS_OSPASSWORD)'
+      $(Build.Repository.LocalPath)/terraform apply -no-color -input=false -parallelism=1 -auto-approve tfplan
     displayName: "Terraform Apply"
     workingDirectory: $(Build.Repository.LocalPath)/
     enabled: true

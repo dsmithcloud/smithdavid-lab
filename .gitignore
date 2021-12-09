@@ -5,6 +5,9 @@
 *.tfstate
 *.tfstate.*
 
+# .tfvar files
+*.tfvar*
+
 # tfplan files
 tfplan
 

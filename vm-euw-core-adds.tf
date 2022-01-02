@@ -112,3 +112,24 @@ resource "azurerm_virtual_machine_extension" "euw-mma" {
         }
         PROTECTED_SETTINGS
 }
+
+resource "azurerm_virtual_machine_extension" "euw-ADHealthCheck" {
+  name                 = "ADAssessment"
+  virtual_machine_id   = azurerm_virtual_machine.vm-euw-adds[count.index].id
+  publisher            = "Microsoft"
+  type                 = "Microsoft.OperationsManagement"
+  type_handler_version = "1.0"
+  count                = length(var.euw-adds-ip_address)
+
+  settings = <<SETTINGS
+        {
+          "workspaceId": "${azurerm_log_analytics_workspace.euw-core-log.workspace_id}"
+        }
+        SETTINGS
+
+  protected_settings = <<PROTECTED_SETTINGS
+        {
+          "workspaceKey": "${azurerm_log_analytics_workspace.euw-core-log.primary_shared_key}"
+        }
+        PROTECTED_SETTINGS
+}

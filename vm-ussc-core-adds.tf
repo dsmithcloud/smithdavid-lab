@@ -114,7 +114,7 @@ resource "azurerm_virtual_machine_extension" "ussc-mma" {
 }
 
 resource "azurerm_virtual_machine_extension" "ussc-ADHealthCheck" {
-  name                 = "ADAssessmentOMS"
+  name                 = "ADAssessment"
   virtual_machine_id   = azurerm_virtual_machine.vm-ussc-adds[count.index].id
   publisher            = "Microsoft"
   type                 = "OperationsManagement"

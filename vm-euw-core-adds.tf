@@ -117,7 +117,7 @@ resource "azurerm_virtual_machine_extension" "euw-ADHealthCheck" {
   name                 = "ADAssessmentOMS"
   virtual_machine_id   = azurerm_virtual_machine.vm-euw-adds[count.index].id
   publisher            = "Microsoft"
-  type                 = "Microsoft.OperationsManagement"
+  type                 = "OperationsManagement"
   type_handler_version = "1.0"
   count                = length(var.euw-adds-ip_address)
 

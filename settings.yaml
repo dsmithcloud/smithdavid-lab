@@ -12,3 +12,19 @@ prod_tags:
 dev_tags:
   Environment: "Dev"
 
+monitor_solutions:
+  [
+    "ADReplication",
+    "AntiMalware",
+    "AgentHealthAssessment",
+    "Updates",
+    "NetworkMonitoring",
+    "KeyVaultAnalytics",
+    "ServiceDesk",
+    "AzureActivity",
+    "AzureAutomation",
+    "AzureBackup",
+    "AzureSQLAnalytics",
+    "ChangeTracking",
+    "Security",
+  ]

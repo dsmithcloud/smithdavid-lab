@@ -27,11 +27,4 @@ monitor_solutions:
     "AzureSQLAnalytics",
     "ChangeTracking",
     "Security",
-    "AddonAzureBackupAlerts",
-    "AddonAzureBackupJobs",
-    "AddonAzureBackupPolicy",
-    "AddonAzureBackupProtectedInstance",
-    "AddonAzureBackupStorage",
-    "AzureDiagnostics",
-    "CoreAzureBackup",
   ]

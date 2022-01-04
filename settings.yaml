@@ -24,7 +24,6 @@ monitor_solutions:
     "ServiceDesk",
     "AzureActivity",
     "AzureAutomation",
-    "AzureBackup",
     "AzureSQLAnalytics",
     "ChangeTracking",
     "Security",

@@ -15,6 +15,7 @@ dev_tags:
 monitor_solutions:
   [
     "ADReplication",
+    "ADAssessment",
     "AntiMalware",
     "AgentHealthAssessment",
     "Updates",

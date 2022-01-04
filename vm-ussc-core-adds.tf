@@ -113,23 +113,4 @@ resource "azurerm_virtual_machine_extension" "ussc-mma" {
         PROTECTED_SETTINGS
 }
 
-resource "azurerm_virtual_machine_extension" "ussc-ADHealthCheck" {
-  name                 = "ADAssessment"
-  virtual_machine_id   = azurerm_virtual_machine.vm-ussc-adds[count.index].id
-  publisher            = "Microsoft"
-  type                 = "OperationsManagement"
-  type_handler_version = "1.0"
-  count                = length(var.ussc-adds-ip_address)
 
-  settings = <<SETTINGS
-        {
-          "workspaceId": "${azurerm_log_analytics_workspace.ussc-core-log.workspace_id}"
-        }
-        SETTINGS
-
-  protected_settings = <<PROTECTED_SETTINGS
-        {
-          "workspaceKey": "${azurerm_log_analytics_workspace.ussc-core-log.primary_shared_key}"
-        }
-        PROTECTED_SETTINGS
-}

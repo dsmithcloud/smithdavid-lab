@@ -4,7 +4,7 @@ resource "azurerm_virtual_network" "vnet-core-ussc" {
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "southcentralus"
   address_space       = ["10.0.0.0/22"]
-  dns_servers         = setunion(var.ussc-adds-ip_address, var.euw-adds-ip_address)
+  dns_servers         = concat(var.ussc-adds-ip_address, var.euw-adds-ip_address)
 
   # ddos_protection_plan {
   #   id     = azurerm_network_ddos_protection_plan.ddos-plan.id

@@ -113,4 +113,15 @@ resource "azurerm_virtual_machine_extension" "ussc-mma" {
         PROTECTED_SETTINGS
 }
 
+resource "azurerm_virtual_machine_extension" "ussc-netwatch" {
+  name                       = "NetworkWatcher"
+  virtual_machine_id         = azurerm_virtual_machine.vm-ussc-adds[count.index].id
+  publisher                  = "Microsoft.Azure.NetworkWatcher"
+  type                       = "NetworkWatcherAgentWindows"
+  type_handler_version       = "1.4"
+  auto_upgrade_minor_version = true
+  #enable_automatic_upgrades  = true
+  count = length(var.ussc-adds-ip_address)
+}
+
 

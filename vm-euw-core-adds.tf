@@ -69,9 +69,10 @@ resource "azurerm_virtual_machine_extension" "euw-iaasantimalware" {
   virtual_machine_id         = azurerm_virtual_machine.vm-euw-adds[count.index].id
   publisher                  = "Microsoft.Azure.Security"
   type                       = "IaaSAntimalware"
-  type_handler_version       = "1.3"
+  type_handler_version       = "1.5.7.24"
   auto_upgrade_minor_version = true
-  count                      = length(var.euw-adds-ip_address)
+  #enable_automatic_upgrades  = true
+  count = length(var.euw-adds-ip_address)
 
   settings = <<SETTINGS
     {
@@ -93,12 +94,14 @@ SETTINGS
 }
 
 resource "azurerm_virtual_machine_extension" "euw-mma" {
-  name                 = "MicrosoftMonitoringAgent"
-  virtual_machine_id   = azurerm_virtual_machine.vm-euw-adds[count.index].id
-  publisher            = "Microsoft.EnterpriseCloud.Monitoring"
-  type                 = "MicrosoftMonitoringAgent"
-  type_handler_version = "1.0"
-  count                = length(var.euw-adds-ip_address)
+  name                       = "MicrosoftMonitoringAgent"
+  virtual_machine_id         = azurerm_virtual_machine.vm-euw-adds[count.index].id
+  publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
+  type                       = "MicrosoftMonitoringAgent"
+  type_handler_version       = "1.0.18064.0"
+  auto_upgrade_minor_version = true
+  #enable_automatic_upgrades  = true
+  count = length(var.euw-adds-ip_address)
 
   settings = <<SETTINGS
         {
@@ -111,6 +114,17 @@ resource "azurerm_virtual_machine_extension" "euw-mma" {
           "workspaceKey": "${azurerm_log_analytics_workspace.euw-core-log.primary_shared_key}"
         }
         PROTECTED_SETTINGS
+}
+
+resource "azurerm_virtual_machine_extension" "euw-netwatch" {
+  name                       = "NetworkWatcher"
+  virtual_machine_id         = azurerm_virtual_machine.vm-euw-adds[count.index].id
+  publisher                  = "Microsoft.Azure.NetworkWatcher"
+  type                       = "NetworkWatcherAgentWindows"
+  type_handler_version       = "1.4"
+  auto_upgrade_minor_version = true
+  #enable_automatic_upgrades  = true
+  count = length(var.euw-adds-ip_address)
 }
 
 

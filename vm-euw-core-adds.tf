@@ -98,7 +98,7 @@ resource "azurerm_virtual_machine_extension" "euw-mma" {
   virtual_machine_id         = azurerm_virtual_machine.vm-euw-adds[count.index].id
   publisher                  = "Microsoft.EnterpriseCloud.Monitoring"
   type                       = "MicrosoftMonitoringAgent"
-  type_handler_version       = "1.0.18064.0"
+  type_handler_version       = "1.0"
   auto_upgrade_minor_version = true
   #enable_automatic_upgrades  = true
   count = length(var.euw-adds-ip_address)

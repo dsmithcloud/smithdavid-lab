@@ -69,7 +69,7 @@ resource "azurerm_virtual_machine_extension" "euw-iaasantimalware" {
   virtual_machine_id         = azurerm_virtual_machine.vm-euw-adds[count.index].id
   publisher                  = "Microsoft.Azure.Security"
   type                       = "IaaSAntimalware"
-  type_handler_version       = "1.5.7.24"
+  type_handler_version       = "1.3"
   auto_upgrade_minor_version = true
   #enable_automatic_upgrades  = true
   count = length(var.euw-adds-ip_address)

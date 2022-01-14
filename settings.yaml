@@ -21,6 +21,8 @@ adds:
   version: latest
   vm_size: Standard_B2s
   admin_username: azadmin
+
+loganalytics:
   monitor_solutions:
     [
       ADReplication,

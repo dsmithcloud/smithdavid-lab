@@ -15,7 +15,7 @@ resource "azurerm_log_analytics_workspace" "euw-core-log" {
 }
 
 resource "azurerm_log_analytics_solution" "ussc-monitor-solutions" {
-  for_each = toset(local.settings.adds.monitor_solutions)
+  for_each = toset(local.settings.loganalytics.monitor_solutions)
 
   solution_name         = each.key
   location              = azurerm_resource_group.ussc-law.location
@@ -30,7 +30,7 @@ resource "azurerm_log_analytics_solution" "ussc-monitor-solutions" {
 }
 
 resource "azurerm_log_analytics_solution" "euw-monitor-solutions" {
-  for_each = toset(local.settings.adds.monitor_solutions)
+  for_each = toset(local.settings.loganalytics.monitor_solutions)
 
   solution_name         = each.key
   location              = azurerm_resource_group.euw-law.location

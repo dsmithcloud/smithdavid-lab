@@ -64,7 +64,7 @@ resource "azurerm_key_vault_secret" "ussc-admin_ospassword" {
   name         = "admin-ospassword"
   value        = var.admin_ospassword
   key_vault_id = azurerm_key_vault.ussc-core-kv.id
-  depends_on   = azurerm_key_vault.ussc-core-kv
+  depends_on   = [azurerm_key_vault.ussc-core-kv]
 }
 
 
@@ -130,6 +130,6 @@ resource "azurerm_key_vault_secret" "euw-admin_ospassword" {
   name         = "admin-ospassword"
   value        = var.admin_ospassword
   key_vault_id = azurerm_key_vault.euw-core-kv.id
-  depends_on   = azurerm_key_vault.euw-core-kv
+  depends_on   = [azurerm_key_vault.euw-core-kv]
 }
 

@@ -120,7 +120,7 @@ resource "azurerm_virtual_machine_extension" "ussc-netwatch" {
   virtual_machine_id         = azurerm_virtual_machine.vm-ussc-adds[count.index].id
   publisher                  = "Microsoft.Azure.NetworkWatcher"
   type                       = "NetworkWatcherAgentWindows"
-  type_handler_version       = "1.4"
+  type_handler_version       = "1.0"
   auto_upgrade_minor_version = true
   count                      = length(local.settings.adds.ussc-adds-ip_address)
 }

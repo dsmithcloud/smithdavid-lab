@@ -137,7 +137,7 @@ resource "azurerm_key_vault_secret" "euw-admin_ospassword" {
   depends_on = [
     azurerm_key_vault.euw-core-kv,
     azurerm_key_vault_access_policy.euw-core-kv1,
-    azurerm_key_vault_access_policy.uew-core-kv2
+    azurerm_key_vault_access_policy.euw-core-kv2
   ]
 }
 

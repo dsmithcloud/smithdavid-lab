@@ -27,16 +27,16 @@ resource "azurerm_virtual_machine" "vm-euw-adds" {
   location                         = azurerm_resource_group.ADDS-euw.location
   resource_group_name              = azurerm_resource_group.ADDS-euw.name
   network_interface_ids            = [element(azurerm_network_interface.nic-euw-adds.*.id, count.index)]
-  vm_size                          = "Standard_D2s_v3"
+  vm_size                          = local.settings.adds.vm_size
   availability_set_id              = azurerm_availability_set.avset-euw-adds.id
   delete_data_disks_on_termination = true
   count                            = length(local.settings.adds.euw-adds-ip_address)
 
   storage_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2019-Datacenter"
-    version   = "latest"
+    publisher = local.settings.adds.publisher
+    offer     = local.settings.adds.offer
+    sku       = local.settings.adds.sku
+    version   = local.settings.adds.version
   }
   os_profile {
     computer_name  = "vmeuwcoreadds${count.index + 1}"

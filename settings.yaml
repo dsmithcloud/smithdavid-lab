@@ -19,7 +19,7 @@ adds:
   offer: WindowsServer
   sku: 2019-Datacenter
   version: latest
-  vm_size: Standard_B1s
+  vm_size: Standard_B2s
   admin_username: azadmin
   monitor_solutions:
     [

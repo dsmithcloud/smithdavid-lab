@@ -60,6 +60,12 @@ resource "azurerm_key_vault_access_policy" "ussc-core-kv2" {
   ]
 }
 
+resource "azurerm_key_vault_secret" "ussc-admin_ospassword" {
+  name         = "admin-ospassword"
+  value        = var.admin_ospassword
+  key_vault_id = azurerm_key_vault.ussc-core-kv.id
+}
+
 
 resource "azurerm_key_vault" "euw-core-kv" {
   name                            = "euw-core-kv"
@@ -117,5 +123,11 @@ resource "azurerm_key_vault_access_policy" "euw-core-kv2" {
   certificate_permissions = [
     "Get",
   ]
+}
+
+resource "azurerm_key_vault_secret" "euw-admin_ospassword" {
+  name         = "admin-ospassword"
+  value        = var.admin_ospassword
+  key_vault_id = azurerm_key_vault.euw-core-kv.id
 }
 

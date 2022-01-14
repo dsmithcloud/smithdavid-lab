@@ -2,13 +2,13 @@ resource "azurerm_network_interface" "nic-euw-adds" {
   name                = "vmeuwcoreadds${count.index + 1}-NIC"
   location            = azurerm_resource_group.ADDS-euw.location
   resource_group_name = azurerm_resource_group.ADDS-euw.name
-  count               = length(var.euw-adds-ip_address)
+  count               = length(local.settings.adds.euw-adds-ip_address)
 
   ip_configuration {
     name                          = "ipconfig1"
     subnet_id                     = azurerm_subnet.subnet-euw-core-adds.id
     private_ip_address_allocation = "Static"
-    private_ip_address            = var.euw-adds-ip_address[count.index]
+    private_ip_address            = local.settings.adds.euw-adds-ip_address[count.index]
   }
 
   tags = merge(local.settings.common_tags, local.settings.core_tags)
@@ -30,7 +30,7 @@ resource "azurerm_virtual_machine" "vm-euw-adds" {
   vm_size                          = "Standard_D2s_v3"
   availability_set_id              = azurerm_availability_set.avset-euw-adds.id
   delete_data_disks_on_termination = true
-  count                            = length(var.euw-adds-ip_address)
+  count                            = length(local.settings.adds.euw-adds-ip_address)
 
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
@@ -40,8 +40,8 @@ resource "azurerm_virtual_machine" "vm-euw-adds" {
   }
   os_profile {
     computer_name  = "vmeuwcoreadds${count.index + 1}"
-    admin_username = "azadmin"
-    admin_password = var.admin_ospassword
+    admin_username = local.settings.adds.admin_username
+    admin_password = azurerm_key_vault_secret.ussc-admin_ospassword.value
   }
   os_profile_windows_config {
     provision_vm_agent        = true
@@ -72,7 +72,7 @@ resource "azurerm_virtual_machine_extension" "euw-iaasantimalware" {
   type_handler_version       = "1.3"
   auto_upgrade_minor_version = true
   #enable_automatic_upgrades  = true
-  count = length(var.euw-adds-ip_address)
+  count = length(local.settings.adds.euw-adds-ip_address)
 
   settings = <<SETTINGS
     {
@@ -101,7 +101,7 @@ resource "azurerm_virtual_machine_extension" "euw-mma" {
   type_handler_version       = "1.0"
   auto_upgrade_minor_version = true
   #enable_automatic_upgrades  = true
-  count = length(var.euw-adds-ip_address)
+  count = length(local.settings.adds.euw-adds-ip_address)
 
   settings = <<SETTINGS
         {
@@ -124,7 +124,7 @@ resource "azurerm_virtual_machine_extension" "euw-netwatch" {
   type_handler_version       = "1.4"
   auto_upgrade_minor_version = true
   #enable_automatic_upgrades  = true
-  count = length(var.euw-adds-ip_address)
+  count = length(local.settings.adds.euw-adds-ip_address)
 }
 
 

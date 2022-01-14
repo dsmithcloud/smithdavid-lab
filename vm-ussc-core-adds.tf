@@ -2,13 +2,15 @@ resource "azurerm_network_interface" "nic-ussc-adds" {
   name                = "vmussccoreadds${count.index + 1}-NIC"
   location            = azurerm_resource_group.ADDS-ussc.location
   resource_group_name = azurerm_resource_group.ADDS-ussc.name
-  count               = length(var.ussc-adds-ip_address)
+  #count               = length(var.ussc-adds-ip_address)
+  count = length(local.settings.adds.ussc-adds-ip_address)
 
   ip_configuration {
     name                          = "ipconfig1"
     subnet_id                     = azurerm_subnet.subnet-ussc-core-adds.id
     private_ip_address_allocation = "Static"
-    private_ip_address            = var.ussc-adds-ip_address[count.index]
+    #private_ip_address            = var.ussc-adds-ip_address[count.index]
+    private_ip_address = local.settings.adds.ussc-adds-ip_address[count.index]
   }
 
   tags = merge(local.settings.common_tags, local.settings.core_tags)
@@ -30,7 +32,7 @@ resource "azurerm_virtual_machine" "vm-ussc-adds" {
   vm_size                          = "Standard_D2s_v3"
   availability_set_id              = azurerm_availability_set.avset-ussc-adds.id
   delete_data_disks_on_termination = true
-  count                            = length(var.ussc-adds-ip_address)
+  count                            = length(local.settings.adds.ussc-adds-ip_address)
 
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
@@ -40,8 +42,8 @@ resource "azurerm_virtual_machine" "vm-ussc-adds" {
   }
   os_profile {
     computer_name  = "vmussccoreadds${count.index + 1}"
-    admin_username = "azadmin"
-    admin_password = var.admin_ospassword
+    admin_username = local.settings.adds.admin_username
+    admin_password = azurerm_key_vault_secret.ussc-admin_ospassword.value
   }
   os_profile_windows_config {
     provision_vm_agent        = true
@@ -71,7 +73,7 @@ resource "azurerm_virtual_machine_extension" "ussc-iaasantimalware" {
   type                       = "IaaSAntimalware"
   type_handler_version       = "1.3"
   auto_upgrade_minor_version = true
-  count                      = length(var.ussc-adds-ip_address)
+  count                      = length(local.settings.adds.ussc-adds-ip_address)
 
   settings = <<SETTINGS
     {
@@ -98,7 +100,7 @@ resource "azurerm_virtual_machine_extension" "ussc-mma" {
   publisher            = "Microsoft.EnterpriseCloud.Monitoring"
   type                 = "MicrosoftMonitoringAgent"
   type_handler_version = "1.0"
-  count                = length(var.ussc-adds-ip_address)
+  count                = length(local.settings.adds.ussc-adds-ip_address)
 
   settings = <<SETTINGS
         {
@@ -120,8 +122,7 @@ resource "azurerm_virtual_machine_extension" "ussc-netwatch" {
   type                       = "NetworkWatcherAgentWindows"
   type_handler_version       = "1.4"
   auto_upgrade_minor_version = true
-  #enable_automatic_upgrades  = true
-  count = length(var.ussc-adds-ip_address)
+  count                      = length(local.settings.adds.ussc-adds-ip_address)
 }
 
 

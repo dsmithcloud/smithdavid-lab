@@ -48,7 +48,7 @@ resource "azurerm_key_vault_access_policy" "ussc-core-kv2" {
   ]
 
   secret_permissions = [
-    "Get",
+    "Get", "List"
   ]
 
   storage_permissions = [
@@ -64,6 +64,7 @@ resource "azurerm_key_vault_secret" "ussc-admin_ospassword" {
   name         = "admin-ospassword"
   value        = var.admin_ospassword
   key_vault_id = azurerm_key_vault.ussc-core-kv.id
+  depends_on   = azurerm_key_vault.ussc-core-kv
 }
 
 
@@ -113,7 +114,7 @@ resource "azurerm_key_vault_access_policy" "euw-core-kv2" {
   ]
 
   secret_permissions = [
-    "Get",
+    "Get", "List"
   ]
 
   storage_permissions = [
@@ -129,5 +130,6 @@ resource "azurerm_key_vault_secret" "euw-admin_ospassword" {
   name         = "admin-ospassword"
   value        = var.admin_ospassword
   key_vault_id = azurerm_key_vault.euw-core-kv.id
+  depends_on   = azurerm_key_vault.euw-core-kv
 }
 

@@ -4,7 +4,7 @@ resource "azurerm_virtual_network" "vnet-core-euw" {
   resource_group_name = azurerm_resource_group.rg-network.name
   location            = "westeurope"
   address_space       = ["10.1.0.0/22"]
-  dns_servers         = concat(var.euw-adds-ip_address, var.ussc-adds-ip_address)
+  dns_servers         = concat(local.settings.adds.euw-adds-ip_address, local.settings.adds.ussc-adds-ip_address)
 
   # ddos_protection_plan {
   #   id     = azurerm_network_ddos_protection_plan.ddos-plan.id

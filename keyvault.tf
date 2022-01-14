@@ -91,7 +91,7 @@ resource "azurerm_key_vault_access_policy" "euw-core-kv1" {
   ]
 
   secret_permissions = [
-    "Get",
+    "Get", "Set"
   ]
 
   storage_permissions = [

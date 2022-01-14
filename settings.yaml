@@ -12,19 +12,23 @@ prod_tags:
 dev_tags:
   Environment: "Dev"
 
-monitor_solutions:
-  [
-    "ADReplication",
-    "ADAssessment",
-    "AntiMalware",
-    "AgentHealthAssessment",
-    "Updates",
-    "NetworkMonitoring",
-    "KeyVaultAnalytics",
-    "ServiceDesk",
-    "AzureActivity",
-    "AzureAutomation",
-    "AzureSQLAnalytics",
-    "ChangeTracking",
-    "Security",
-  ]
+adds:
+  ussc-adds-ip_address: ["10.0.0.68"] # Add more IP addresses to create more domain controllers
+  euw-adds-ip_address: ["10.1.0.68"] # Add more IP addresses to create more domain controllers
+  admin_username: azadmin
+  monitor_solutions:
+    [
+      ADReplication,
+      ADAssessment,
+      AntiMalware,
+      AgentHealthAssessment,
+      Updates,
+      NetworkMonitoring,
+      KeyVaultAnalytics,
+      ServiceDesk,
+      AzureActivity,
+      AzureAutomation,
+      AzureSQLAnalytics,
+      ChangeTracking,
+      Security,
+    ]

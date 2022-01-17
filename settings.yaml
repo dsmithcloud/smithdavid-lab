@@ -22,6 +22,15 @@ adds:
   vm_size: Standard_B2s
   admin_username: azadmin
 
+ckalab:
+  ussc-ckalab-ip_address: ["10.0.4.4", "10.0.4.5", "10.0.4.6", "10.0.4.7"] # Add more IP addresses to create more domain controllers
+  publisher: OpenLogic
+  offer: CentOS
+  sku: 7.7
+  version: latest
+  vm_size: Standard_Ds1_v2
+  admin_username: azroot
+
 loganalytics:
   monitor_solutions:
     [

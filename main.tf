@@ -42,4 +42,9 @@ resource "azurerm_resource_group" "euw-law" {
   location = "West Europe"
 }
 
+resource "azurerm_resource_group" "ckalab-ussc" {
+  name     = "rg-ussc-dev-ckalab"
+  location = "South Central US"
+}
+
 

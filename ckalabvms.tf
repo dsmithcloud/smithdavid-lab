@@ -60,6 +60,10 @@ resource "azurerm_virtual_machine" "vm-ussc-ckalab" {
     caching           = "None"
   }
 
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+
   tags = merge(local.settings.common_tags, local.settings.core_tags)
 }
 

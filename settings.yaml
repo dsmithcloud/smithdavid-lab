@@ -28,7 +28,7 @@ ckalab:
   offer: CentOS
   sku: 7.7
   version: latest
-  vm_size: Standard_Ds1_v2
+  vm_size: Standard_Ds2_v2
   admin_username: azroot
 
 loganalytics:

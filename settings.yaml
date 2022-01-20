@@ -48,3 +48,29 @@ loganalytics:
       ChangeTracking,
       Security,
     ]
+
+policies:
+  policy0:
+    name: "Enable Azure Monitor for VMs - EUW"
+    policy_id: "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
+    parameters: '{"logAnalytics_1": {"value": "/subscriptions/a086e6e3-3a0f-45fb-aa14-1d53e4308040/resourcegroups/rg-euw-core-log/providers/microsoft.operationalinsights/workspaces/euw-core-log"}}'
+    location: "westeurope"
+    identity: true
+  policy1:
+    name: "Enable Azure Monitor for VMs - USSC"
+    policy_id: "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a"
+    parameters: '{"logAnalytics_1": {"value": "/subscriptions/a086e6e3-3a0f-45fb-aa14-1d53e4308040/resourcegroups/rg-ussc-core-log/providers/microsoft.operationalinsights/workspaces/ussc-core-log"}}'
+    location: "southcentralus"
+    identity: true
+  policy2:
+    name: "Storage accounts should restrict network access"
+    policy_id: "/providers/Microsoft.Authorization/policyDefinitions/2a1a9cdf-e04d-429a-8416-3bfb72a1b26f"
+    parameters: null
+    location: null
+    identity: false
+  policy3:
+    name: "Allowed virtual machine size SKUs"
+    policy_id: "/providers/Microsoft.Authorization/policyDefinitions/cccc23c7-8427-4f53-ad12-b6a63eb452b3"
+    parameters: '{"listOfAllowedSKUs": {"value": ["Standard_D2s_V3","Standard_B2s"]}}'
+    location: null
+    identity: false

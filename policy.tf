@@ -1,14 +1,3 @@
-# variable "policy" {
-#   type = map(object({
-#     name       = string
-#     policy_id  = string
-#     parameters = string
-#     location   = string
-#   }))
-# }
-
-# policy = local.settings.policy
-
 data "azurerm_subscription" "current" {}
 
 resource "azurerm_subscription_policy_assignment" "policyAssignment" {

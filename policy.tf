@@ -15,11 +15,4 @@ resource "azurerm_subscription_policy_assignment" "policyAssignment" {
       type = "SystemAssigned"
     }
   }
-
-  # dynamic "identity" {
-  #   for_each = each.value["identity"] ? [] : [1]
-  #   content {
-  #     type = null
-  #   }
-  # }
 }
